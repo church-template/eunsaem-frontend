@@ -1,7 +1,21 @@
 # Changelog
 
-**현재 버전:** 0.1.80  
-**마지막 업데이트:** 2026-09-20T11:39:32Z  
+**현재 버전:** 0.1.83  
+**마지막 업데이트:** 2026-11-09T15:48:15Z  
+
+---
+
+## [0.1.83] - 2026-11-09
+
+**PR:** #130  
+
+**문서**
+- README를 프로젝트 소개 중심으로 재작성
+
+**기타**
+- Merge pull request #129 from church-template/20261110_#128_기능개선_CI_GitHub_Actions_Node_24_지원_버전_업데이트
+- chore : GitHub Actions 액션을 Node 24 지원 버전으로 업데이트 #128
+- chore : docs/superpowers 설계·계획 문서 Git 추적 해제 #127
 
 ---
 
