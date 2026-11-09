@@ -13,7 +13,8 @@ permissions:
 jobs:
   auto-merge:
     runs-on: ubuntu-latest
-    if: github.event.pull_request.draft == false
+    # 포크에서 온 PR은 머지하지 않는다(같은 저장소 브랜치만).
+    if: github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.draft == false
     steps:
       - name: ✅ Squash-merge PR
         env:
