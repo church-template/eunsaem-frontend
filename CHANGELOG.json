@@ -1,14 +1,43 @@
 {
   "metadata": {
-    "lastUpdated": "2026-11-10T06:55:29Z",
-    "currentVersion": "0.1.86",
+    "lastUpdated": "2026-11-10T09:32:19Z",
+    "currentVersion": "0.1.88",
     "projectType": "next",
     "projectTypes": [
       "next"
     ],
-    "totalReleases": 21
+    "totalReleases": 22
   },
   "releases": [
+    {
+      "version": "0.1.88",
+      "project_type": "next",
+      "project_types": [
+        "next"
+      ],
+      "date": "2026-11-10",
+      "pr_number": 150,
+      "raw_summary": "## Summary by CodeRabbit\n\n## 릴리스 노트\n\n* **새 기능**\n  * 사역 안내: 큰 사진과 함께 스크롤로 부서를 하나씩 소개\n  * 예배 시간 안내: 주일예배 시간을 크게, 다음 예배까지 남은 시간 표시\n  * 예배 시간 안내: 처음 오는 분을 위한 주일 아침 흐름 안내\n  * 설교: 최신 설교를 맨 위에 크게, 나머지는 월별로 정리\n\n* **개선**\n  * 주중 예배를 한눈에 보는 표로 정리\n  * 휴대폰·태블릿에서 사역·예배·설교 화면이 세로로 깔끔하게 정렬",
+      "parsed_changes": {
+        "새_기능": {
+          "title": "새 기능",
+          "items": [
+            "사역 안내: 큰 사진과 함께 스크롤로 부서를 하나씩 소개",
+            "예배 시간 안내: 주일예배 시간을 크게, 다음 예배까지 남은 시간 표시",
+            "예배 시간 안내: 처음 오는 분을 위한 주일 아침 흐름 안내",
+            "설교: 최신 설교를 맨 위에 크게, 나머지는 월별로 정리"
+          ]
+        },
+        "개선": {
+          "title": "개선",
+          "items": [
+            "주중 예배를 한눈에 보는 표로 정리",
+            "휴대폰·태블릿에서 사역·예배·설교 화면이 세로로 깔끔하게 정렬"
+          ]
+        }
+      },
+      "parse_method": "markdown"
+    },
     {
       "version": "0.1.86",
       "project_type": "next",
