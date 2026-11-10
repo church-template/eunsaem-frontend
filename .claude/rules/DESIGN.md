@@ -541,6 +541,13 @@ portal로 뜨는 동작 컴포넌트(Modal·Sheet·Popover·Select·Dropdown·To
   `{typography.title-md}` + 인도자 `{typography.datetime}` `{colors.muted}`. `sermon-card` 호버(soft drop +
   썸네일 1.03 줌) 재사용. `/departments/{slug}`로 링크, 목록 카드 이미지 = 상세 히어로 이미지(목록↔상세 시각 연속성).
 - **`church-photos`**: 교회사진(`/about/photos`) 공개 페이지. 카테고리 토글(`Tabs` 재사용, 교회 내부/외부)로 사진 그리드를 통째 교체, 썸네일 클릭 시 `Dialog` 확대 모달(좌우 이동·키보드, 이동은 활성 그룹 내부). 콘텐츠는 `CHURCH_PHOTOS` 상수(`public/photos/**` 정적 에셋) 주입, 갤러리 미재사용(자체 컴포넌트)·`<img>` 프레젠테이션 셸. 정적 생성(API 호출 0).
+- **`ministry-showcase`**: 사역 목록(`/departments`). 카드 그리드 대신 **스크롤 고정 쇼케이스** — 부서별 고해상도 단체 사진이 주인공이다.
+  데스크톱(≥64rem): 좌 7 : 우 5. 왼쪽 사진 무대(`{rounded.xl}`, 비율 3:2 — 단체 사진 좌우가 잘리지 않게)가 sticky로 고정되고, 오른쪽 부서 블록(최소 62vh)을
+  스크롤하면 뷰포트 가운데 띠를 지나는 부서로 사진이 크로스페이드된다(IntersectionObserver, opacity만). 좌상단에 `n / 전체` 카운터(`{typography.datetime}`).
+  부서 블록 = 부서명 `{typography.caption}` `{colors.primary}` + 대표 문구 `{typography.display-md}`(h2) + 한 줄 소개 `{typography.body-md}` +
+  모임 시간 `{typography.datetime}` `{colors.muted}` + "자세히 보기" 텍스트 링크(48px). 지나간·다가올 블록은 흐리게(opacity .55) — 지우지 않는다(고령 가독).
+  **<64rem은 고정하지 않는다**: 부서마다 사진(16:10, `{rounded.xl}`) + 글을 세로로 쌓고 흐림도 없다(사진이 화면 폭의 절반으로 쪼그라드는 2컬럼 금지).
+  reduced-motion은 전환 없이 즉시 교체. JS가 없어도 모든 글과 링크는 읽힌다(첫 부서 사진 고정). 데이터는 `DEPARTMENTS`의 `caption`·`summary`·`when`.
 - **`dept-tree`**: 사역(부서) 목록 = 최상위 부서 카드 그리드(조직도 다이어그램 아님 — 탐색 목적·고령 터치·단일 액센트).
   공개 인트로는 **프론트 상수(`DEPARTMENTS`) 구동**(메인처럼 자립, 백엔드 불필요·정적 생성). 하위부서는
   인덱스에 펼치지 않고 각 상세의 `SubDepartments`에서만 노출. (백엔드 `department`는 교인 정보관리·어드민 별개.)
