@@ -1,7 +1,23 @@
 # Changelog
 
 **현재 버전:** 0.1.85  
-**마지막 업데이트:** 2026-11-10T03:06:52Z  
+**마지막 업데이트:** 2026-11-10T03:22:19Z  
+
+---
+
+## [0.1.85] - 2026-11-10
+
+**PR:** #140  
+
+**기타**
+- Merge pull request #139 from church-template/20261110_#134_deploy_이력_main_통합
+- chore : deploy 브랜치 squash 이력을 main에 통합(내용은 main 유지) #134
+- eunsaem-frontend 버전 관리 : docs : v0.1.85 릴리즈 문서 업데이트 (PR #138)
+- Merge pull request #137 from church-template/20261110_#134_pull_request_target_복원_skip_ci_대응
+- Merge pull request #135 from church-template/20261110_#134_기능개선_CI_릴리스_워크플로_트리거를_pull_request로_전환
+- fix : 릴리스 워크플로 트리거를 pull_request로 전환 #134
+- Merge pull request #132 from church-template/20261110_#131_기능개선_CI_포크_PR_배포_차단_CodeRabbit_대기_제거
+- fix : 포크 PR이 릴리스·자동 머지 워크플로를 실행하지 못하게 차단, CodeRabbit 대기 제거 #131
 
 ---
 
