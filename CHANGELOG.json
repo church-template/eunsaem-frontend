@@ -1,14 +1,37 @@
 {
   "metadata": {
-    "lastUpdated": "2026-11-09T15:48:15Z",
-    "currentVersion": "0.1.83",
+    "lastUpdated": "2026-11-10T03:06:52Z",
+    "currentVersion": "0.1.85",
     "projectType": "next",
     "projectTypes": [
       "next"
     ],
-    "totalReleases": 18
+    "totalReleases": 19
   },
   "releases": [
+    {
+      "version": "0.1.85",
+      "project_type": "next",
+      "project_types": [
+        "next"
+      ],
+      "date": "2026-11-10",
+      "pr_number": 138,
+      "raw_summary": "## Summary by CodeRabbit\n\n## 릴리스 노트\n\n* **기타**\n\n  * Merge pull request #137 from church-template/20261110_#134_pull_request_target_복원_skip_ci_대응\n  * Merge pull request #135 from church-template/20261110_#134_기능개선_CI_릴리스_워크플로_트리거를_pull_request로_전환\n  * fix : 릴리스 워크플로 트리거를 pull_request로 전환 #134\n  * Merge pull request #132 from church-template/20261110_#131_기능개선_CI_포크_PR_배포_차단_CodeRabbit_대기_제거\n  * fix : 포크 PR이 릴리스·자동 머지 워크플로를 실행하지 못하게 차단, CodeRabbit 대기 제거 #131\n\n> 💡 더 정확한 릴리스 노트를 원한다면 Claude Code에서 `/github` 스킬로 PR 릴리스 노트를 업데이트할 수 있습니다.",
+      "parsed_changes": {
+        "기타": {
+          "title": "기타",
+          "items": [
+            "Merge pull request #137 from church-template/20261110_#134_pull_request_target_복원_skip_ci_대응",
+            "Merge pull request #135 from church-template/20261110_#134_기능개선_CI_릴리스_워크플로_트리거를_pull_request로_전환",
+            "fix : 릴리스 워크플로 트리거를 pull_request로 전환 #134",
+            "Merge pull request #132 from church-template/20261110_#131_기능개선_CI_포크_PR_배포_차단_CodeRabbit_대기_제거",
+            "fix : 포크 PR이 릴리스·자동 머지 워크플로를 실행하지 못하게 차단, CodeRabbit 대기 제거 #131"
+          ]
+        }
+      },
+      "parse_method": "markdown"
+    },
     {
       "version": "0.1.83",
       "project_type": "next",
