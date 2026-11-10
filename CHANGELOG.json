@@ -1,14 +1,33 @@
 {
   "metadata": {
-    "lastUpdated": "2026-11-10T13:00:32Z",
-    "currentVersion": "0.1.89",
+    "lastUpdated": "2026-11-10T13:20:15Z",
+    "currentVersion": "0.1.90",
     "projectType": "next",
     "projectTypes": [
       "next"
     ],
-    "totalReleases": 23
+    "totalReleases": 24
   },
   "releases": [
+    {
+      "version": "0.1.90",
+      "project_type": "next",
+      "project_types": [
+        "next"
+      ],
+      "date": "2026-11-10",
+      "pr_number": 156,
+      "raw_summary": "## Summary by CodeRabbit\n\n## 릴리스 노트\n\n* **버그 수정**\n  * 공지 상세 페이지가 열리지 않던 문제 해결",
+      "parsed_changes": {
+        "버그_수정": {
+          "title": "버그 수정",
+          "items": [
+            "공지 상세 페이지가 열리지 않던 문제 해결"
+          ]
+        }
+      },
+      "parse_method": "markdown"
+    },
     {
       "version": "0.1.89",
       "project_type": "next",
