@@ -454,6 +454,13 @@ portal로 뜨는 동작 컴포넌트(Modal·Sheet·Popover·Select·Dropdown·To
 - **`button-kakao`** / **`button-naver`**: 외부 지도 "…에서 보기" 버튼 전용(오시는 길). 각 서비스 공식 채움색(카카오 `bg-kakao`+검정 글자 / 네이버 `bg-naver`+흰 글자, hover·press는 `brightness`로 절제). **단일 액센트 원칙의 의도적 예외** — 제3자 브랜드라 교회 팔레트가 아니며 이 두 버튼 외엔 쓰지 않는다. 토큰: globals.css `--color-kakao`·`--color-kakao-ink`·`--color-naver`·`--color-naver-on`.
 
 ### 콘텐츠 카드
+- **`sermon-feature`**: 설교 목록(`/sermons`) 상단 최신 말씀 띠. `{colors.surface-dark}` `{rounded.xl}` 전체가 상세 링크.
+  라벨 `{typography.caption-strong}` `{colors.primary-on-dark}`(최근 7일 안이면 "이번 주 말씀", 아니면 "최근 말씀" — 한국 날짜 기준) +
+  본문 구절 `{typography.title-md}` on-dark-soft + 제목 `{typography.display-lg}`(h2) on-dark + 날짜·설교자·시리즈 `{typography.datetime}` +
+  우측 `button-pill-cta` 모양 "말씀 보기"(링크 안 표시용 span — 중첩 인터랙티브 금지). **검색·필터 없는 첫 페이지에서만** 노출.
+- **`sermon-month-list`**: 설교 월별 줄 목록. 월 제목 `{typography.title-md}` + 2px `{colors.ink}` 하단 룰, 행 = 날짜(`11월 1일`) `{typography.datetime}` `{colors.muted}` |
+  제목 `{typography.title-md}`(hover primary) + 시리즈·본문 `{typography.body-sm}` | 설교자 `{typography.body-sm}`, 1px 헤어라인 구분, 행 전체 링크.
+  ≥40rem 3칸, 그 미만 세로 쌓기. 날짜는 `preachedAt` 문자열에서 바로 읽는다(시간대 밀림 방지). 페이지 경계에서 한 달이 나뉘면 양쪽에 같은 달 제목.
 - **`sermon-card`**: 16:9 썸네일(상단, 라운드는 카드와 함께 24px) + 제목
   `{typography.title-md}` + 설교자·날짜 `{typography.datetime}` `{colors.muted}`.
   호버 시 soft drop + 썸네일 1.03배 줌(0.3s ease).
