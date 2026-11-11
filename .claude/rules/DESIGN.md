@@ -538,6 +538,12 @@ portal로 뜨는 동작 컴포넌트(Modal·Sheet·Popover·Select·Dropdown·To
   지우지 않는다**(고령 가독성 > 몰입). 켜짐은 `animation-fill-mode: none` + **인덱스 등분** `animation-range`(고정·비고정
   공통)로 성립 — 구간이 배타적이라 겹침이 원천 차단된다. 미지원 브라우저·reduced-motion은 평문(`{colors.body}`)·고정 없음.
   대수·노브는 스펙(docs/superpowers/specs/2026-07-13-pastor-reading-spotlight-design.md).
+- **`pastor-closing`**: 목회자 인사말 맺음말(본문 바로 아래). 본문과 같은 흰 캔버스에서 1px `{colors.hairline}` 하나로만 끊고
+  인용문 `{typography.display-lg}` `{colors.ink}` + 우측 정렬 서명(직분 `{typography.body-sm}` `{colors.muted}` + 이름 `{typography.display-sm}`)을 둔다.
+  본문과 같은 4:8 그리드의 오른쪽 칸에 선다(좁은 폭은 한 칸). 카드·다크 밴드·인용 글리프·배지를 쓰지 않는다 — 인사말이 편지라 끝도 편지처럼.
+- **`pastor-dossier`**: 인사말 하단 회색 밴드. 좌 학력 및 경력 : 우 목회 철학 = 5:7(<64rem 세로 쌓기). 둘 다 제목 `{typography.title-md}` +
+  2px `{colors.ink}` 하단 룰 아래 1px 헤어라인 줄 목록(`month-list-row` 결). 약력 행 `{typography.body-md}`, 철학 행 = 번호(`01`~) `{typography.datetime}` muted +
+  문구 `{typography.title-md}` + lucide 아이콘(24px, `{colors.muted}`). 카드 그리드를 쓰지 않는다(한 줄 항목에 틀이 과하다).
 - **`history-timeline`** (홈 연혁, 구 `history-band` 색 카드 시퀀스를 대체): 서브타이틀 "연혁" `{typography.title-md}` primary +
   헤드라인 `{typography.display-lg}`(h2) 아래 `<ol>` 타임라인. 항목 = 큰 연도 `{typography.display-xl}`(tnum, aria-hidden) + 연월 `{typography.datetime}` muted +
   제목 `{typography.display-sm}`(h3) + 설명 `{typography.body-md}` + 연혁 사진(`HistoryMedia`, 16:10 `{rounded.xl}`).
