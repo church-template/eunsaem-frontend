@@ -1,14 +1,33 @@
 {
   "metadata": {
-    "lastUpdated": "2026-11-11T13:19:02Z",
-    "currentVersion": "0.1.92",
+    "lastUpdated": "2026-11-11T17:20:55Z",
+    "currentVersion": "0.1.93",
     "projectType": "next",
     "projectTypes": [
       "next"
     ],
-    "totalReleases": 26
+    "totalReleases": 27
   },
   "releases": [
+    {
+      "version": "0.1.93",
+      "project_type": "next",
+      "project_types": [
+        "next"
+      ],
+      "date": "2026-11-11",
+      "pr_number": 164,
+      "raw_summary": "## Summary by CodeRabbit\n\n## 릴리스 노트\n\n* **기타**\n\n  * feat : 처음 오셨나요 밴드에 단체 사진 배경과 대표 예배 안내 한 줄 추가 #163\n\n> 💡 더 정확한 릴리스 노트를 원한다면 Claude Code에서 `/github` 스킬로 PR 릴리스 노트를 업데이트할 수 있습니다.",
+      "parsed_changes": {
+        "기타": {
+          "title": "기타",
+          "items": [
+            "feat : 처음 오셨나요 밴드에 단체 사진 배경과 대표 예배 안내 한 줄 추가 #163"
+          ]
+        }
+      },
+      "parse_method": "markdown"
+    },
     {
       "version": "0.1.92",
       "project_type": "next",
