@@ -510,7 +510,8 @@ portal로 뜨는 동작 컴포넌트(Modal·Sheet·Popover·Select·Dropdown·To
   카드는 좌표가 있으면 "지도 보기" 링크, 픽업 텍스트가 없으면 "위치 첨부됨" 표기.
 
 ### 밴드
-- **`cta-band-dark`**: 프리푸터. "처음 오셨나요?" 헤드라인 `{typography.display-lg}` +
+- **`cta-band-dark`**: 프리푸터. 단체 사진(`CTA_BAND.image`) 풀블리드 배경 + `{colors.surface-dark}` 70% 덮개 위에
+  "처음 오셨나요?" 헤드라인 `{typography.display-lg}` + 대표 예배 안내 한 줄 `{typography.body-md}` on-dark(`WORSHIP_SERVICES`의 `primary`에서 장소·시간) +
   CTA 2개(primary + outline-on-dark). 상하 96px.
 
 ### 연출

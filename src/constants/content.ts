@@ -463,6 +463,7 @@ export const CTA_BAND = {
   heading: "처음 오셨나요?",
   primary: "새가족 안내",
   secondary: "오시는 길",
+  image: "/collage-2.jpeg", // 배경 사진 — 온 교회 단체 사진(장면 섹션 사진 재사용)
 };
 
 // 메인 사역 카드(스펙 2026-06-12 H4·H5) — VISION.points의 3축을 카드로 승격.
