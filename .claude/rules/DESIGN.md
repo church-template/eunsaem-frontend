@@ -539,6 +539,9 @@ portal로 뜨는 동작 컴포넌트(Modal·Sheet·Popover·Select·Dropdown·To
   지우지 않는다**(고령 가독성 > 몰입). 켜짐은 `animation-fill-mode: none` + **인덱스 등분** `animation-range`(고정·비고정
   공통)로 성립 — 구간이 배타적이라 겹침이 원천 차단된다. 미지원 브라우저·reduced-motion은 평문(`{colors.body}`)·고정 없음.
   대수·노브는 스펙(docs/superpowers/specs/2026-07-13-pastor-reading-spotlight-design.md).
+- **`vision-goals`**: 소개 페이지(`/about`) 비전 회색 밴드. 좌 제목·대표 문장 : 우 번호 목록 = 4:8(<64rem 세로 쌓기, 좌측은 ≥64rem에서 sticky).
+  좌 = 서브타이틀 `{typography.title-md}` primary + 대표 문장(`VISION.statement`) `{typography.display-lg}` ink. 우 = 2px `{colors.ink}` 상단 룰 아래
+  1px 헤어라인 줄 목록, 행 = 번호(`01`~) `{typography.datetime}` muted + 문구 `{typography.title-md}` + lucide 아이콘(28px, primary). 카드 그리드를 쓰지 않는다(`pastor-dossier` 결).
 - **`pastor-closing`**: 목회자 인사말 맺음말(본문 바로 아래). 본문과 같은 흰 캔버스에서 1px `{colors.hairline}` 하나로만 끊고
   인용문 `{typography.display-lg}` `{colors.ink}` + 우측 정렬 서명(직분 `{typography.body-sm}` `{colors.muted}` + 이름 `{typography.display-sm}`)을 둔다.
   본문과 같은 4:8 그리드의 오른쪽 칸에 선다(좁은 폭은 한 칸). 카드·다크 밴드·인용 글리프·배지를 쓰지 않는다 — 인사말이 편지라 끝도 편지처럼.

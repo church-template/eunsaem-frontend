@@ -6,10 +6,11 @@ import { VisionGoals } from "./VisionGoals";
 afterEach(() => vi.unstubAllGlobals());
 
 describe("VisionGoals", () => {
-  it("비전 제목과 6개 항목·아이콘을 렌더한다", () => {
+  it("비전 제목·대표 문장과 6개 항목·아이콘을 렌더한다", () => {
     vi.stubGlobal("matchMedia", vi.fn(() => ({ matches: true })));
     const { container } = render(<VisionGoals />);
     expect(screen.getByText(VISION.title)).toBeDefined();
+    expect(screen.getByText(VISION.statement)).toBeDefined();
     VISION.points.forEach((point) => {
       expect(screen.getByText(point)).toBeDefined();
     });
