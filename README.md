@@ -66,11 +66,11 @@
 | UI 동작 | Radix UI(Dialog·Dropdown·Popover·Select·Tabs), sonner(토스트) |
 | 콘텐츠 | marked, isomorphic-dompurify |
 | 테스트 | Vitest, Testing Library, jsdom |
-| 배포 | Vercel (Node 22), GitHub Actions |
+| 배포 | Vercel (Node 26), GitHub Actions |
 
 ## 시작하기
 
-Node 22와 pnpm이 필요합니다. 백엔드는 [church-backend](https://github.com/church-template/church-backend)의 안내대로 로컬에서 먼저 띄웁니다.
+Node 26과 pnpm이 필요합니다. 백엔드는 [church-backend](https://github.com/church-template/church-backend)의 안내대로 로컬에서 먼저 띄웁니다.
 
 ```bash
 pnpm install
@@ -104,7 +104,7 @@ src/
 
 ## 배포
 
-`deploy` 브랜치로 PR을 열면 자동으로 squash 머지되고, 그 push가 GitHub Actions에서 `vercel build` → `vercel deploy --prebuilt --prod`를 실행해 Vercel 프로덕션에 배포합니다. 런타임과 빌드 환경 모두 Node 22로 고정했습니다. 버전·CHANGELOG와 아래 버전 표기는 워크플로우가 관리합니다.
+`deploy` 브랜치로 PR을 열면 자동으로 squash 머지되고, 그 push가 GitHub Actions에서 `vercel build` → `vercel deploy --prebuilt --prod`를 실행해 Vercel 프로덕션에 배포합니다. 런타임과 빌드 환경 모두 Node 26으로 고정했습니다. 버전·CHANGELOG와 아래 버전 표기는 워크플로우가 관리합니다.
 
 ## 개발 규약 (요약)
 
