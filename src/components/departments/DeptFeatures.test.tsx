@@ -12,7 +12,7 @@ const items: DeptFeature[] = [
 ];
 
 describe("DeptFeatures", () => {
-  it("헤딩·리드와 기능 카드 3장(아이콘 포함)을 렌더한다", () => {
+  it("헤딩·리드와 번호 줄 목록 3행(아이콘 포함)을 렌더한다", () => {
     vi.stubGlobal("matchMedia", vi.fn(() => ({ matches: true })));
     const { container } = render(
       <DeptFeatures heading="학생부" lead="함께 성장해요" items={items} />,
@@ -24,6 +24,10 @@ describe("DeptFeatures", () => {
       expect(screen.getByText(f.desc)).toBeDefined();
     }
     expect(container.querySelectorAll("svg").length).toBe(3);
+    // 카드 대신 번호 줄 목록(01~03)
+    expect(container.querySelectorAll("ol > li").length).toBe(3);
+    expect(screen.getByText("01")).toBeDefined();
+    expect(screen.getByText("03")).toBeDefined();
   });
 
   it("lead가 없으면 리드 문단을 렌더하지 않는다", () => {

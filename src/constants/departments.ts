@@ -10,6 +10,7 @@ export interface DeptFeature {
 }
 
 export interface DeptInfoItem {
+  icon: string; // 직렬화 키 — DeptInfo에서 lucide 아이콘으로 매핑. "phone"이면 값이 tel: 링크가 된다
   label: string;
   value: string;
 }
@@ -77,10 +78,10 @@ export const DEPARTMENTS: Department[] = [
       { icon: "sparkles", title: "창의적 활동", desc: "재미있는 활동을 통한 전인적 성장" },
     ],
     info: [
-      { label: "담당자", value: "학생부 담당 선생님" },
-      { label: "모임 시간", value: "매주 토요일 오전 11시 (학생·청년예배)" },
-      { label: "연락처", value: "041-337-2298" },
-      { label: "모임 장소", value: "은샘침례교회 학생부실" },
+      { icon: "clock", label: "모임 시간", value: "매주 토요일 오전 11시 (학생·청년예배)" },
+      { icon: "pin", label: "모임 장소", value: "은샘침례교회 학생부실" },
+      { icon: "user", label: "담당자", value: "학생부 담당 선생님" },
+      { icon: "phone", label: "연락처", value: "041-337-2298" },
     ],
     activities: [
       "토요일 학생 예배 및 성경공부",
@@ -120,14 +121,14 @@ export const DEPARTMENTS: Department[] = [
     },
     features: [
       { icon: "book", title: "말씀 훈련", desc: "청년의 눈높이에 맞춘 깊이 있는 성경 공부" },
-      { icon: "users", title: "소그룹 교제", desc: "진솔한 나눔으로 서로를 세우는 공동체" },
-      { icon: "sparkles", title: "비전과 소명", desc: "삶의 자리에서 부르심을 발견하는 시간" },
+      { icon: "messages", title: "소그룹 교제", desc: "진솔한 나눔으로 서로를 세우는 공동체" },
+      { icon: "compass", title: "비전과 소명", desc: "삶의 자리에서 부르심을 발견하는 시간" },
     ],
     info: [
-      { label: "담당자", value: "청년부 담당 교역자" },
-      { label: "모임 시간", value: "매주 토요일 오전 11시 (학생·청년예배)" },
-      { label: "연락처", value: "041-337-2298" },
-      { label: "모임 장소", value: "은샘침례교회 청년부실" },
+      { icon: "clock", label: "모임 시간", value: "매주 토요일 오전 11시 (학생·청년예배)" },
+      { icon: "pin", label: "모임 장소", value: "은샘침례교회 청년부실" },
+      { icon: "user", label: "담당자", value: "청년부 담당 교역자" },
+      { icon: "phone", label: "연락처", value: "041-337-2298" },
     ],
     activities: [
       "토요일 청년 예배 및 말씀 나눔",
@@ -166,15 +167,15 @@ export const DEPARTMENTS: Department[] = [
       lead: "찬양과 경배로 예배를 섬기는 사역팀 'Seed-씨앗'입니다. 리드보컬·악기·음향·방송이 한마음으로 성도들의 마음을 모아 하나님께 영광을 올려드립니다.",
     },
     features: [
-      { icon: "sparkles", title: "찬양 인도", desc: "리드보컬과 싱어가 예배의 흐름을 이끕니다" },
-      { icon: "users", title: "연주팀", desc: "건반·기타·베이스·드럼이 함께 만드는 찬양" },
-      { icon: "book", title: "음향·방송", desc: "보이지 않는 곳에서 예배를 든든히 섬깁니다" },
+      { icon: "mic", title: "찬양 인도", desc: "리드보컬과 싱어가 예배의 흐름을 이끕니다" },
+      { icon: "music", title: "연주팀", desc: "건반·기타·베이스·드럼이 함께 만드는 찬양" },
+      { icon: "speaker", title: "음향·방송", desc: "보이지 않는 곳에서 예배를 든든히 섬깁니다" },
     ],
     info: [
-      { label: "담당자", value: "예배부 찬양 인도자" },
-      { label: "모임 시간", value: "매주 주일 오전 9시 30분 (예배 전 연습)" },
-      { label: "연락처", value: "041-337-2298" },
-      { label: "모임 장소", value: "은샘침례교회 본당·음향실" },
+      { icon: "clock", label: "모임 시간", value: "매주 주일 오전 9시 30분 (예배 전 연습)" },
+      { icon: "pin", label: "모임 장소", value: "은샘침례교회 본당·음향실" },
+      { icon: "user", label: "담당자", value: "예배부 찬양 인도자" },
+      { icon: "phone", label: "연락처", value: "041-337-2298" },
     ],
     activities: [
       "주일 예배 찬양 인도",
@@ -213,15 +214,15 @@ export const DEPARTMENTS: Department[] = [
       lead: "남성 성도들이 섬김과 봉사로 교회를 세워가는 공동체입니다. 예배와 선교, 교회 시설을 섬기며 형제의 교제 안에서 가정과 교회의 영적 리더로 함께 성장합니다.",
     },
     features: [
-      { icon: "users", title: "형제 교제", desc: "믿음의 형제들과 함께하는 든든한 동역" },
+      { icon: "handshake", title: "형제 교제", desc: "믿음의 형제들과 함께하는 든든한 동역" },
       { icon: "book", title: "말씀과 기도", desc: "가정과 교회를 세우는 영적 리더로 훈련" },
-      { icon: "sparkles", title: "섬김과 봉사", desc: "교회 시설과 지역을 위한 손길" },
+      { icon: "hammer", title: "섬김과 봉사", desc: "교회 시설과 지역을 위한 손길" },
     ],
     info: [
-      { label: "담당자", value: "남선교회 회장" },
-      { label: "모임 시간", value: "매월 첫째 주일 오후 (월례회)" },
-      { label: "연락처", value: "041-337-2298" },
-      { label: "모임 장소", value: "은샘침례교회 교육관" },
+      { icon: "clock", label: "모임 시간", value: "매월 첫째 주일 오후 (월례회)" },
+      { icon: "pin", label: "모임 장소", value: "은샘침례교회 교육관" },
+      { icon: "user", label: "담당자", value: "남선교회 회장" },
+      { icon: "phone", label: "연락처", value: "041-337-2298" },
     ],
     activities: [
       "월례회 및 친교 모임",
@@ -262,13 +263,13 @@ export const DEPARTMENTS: Department[] = [
     features: [
       { icon: "book", title: "기도와 말씀", desc: "말씀과 기도로 자라가는 영성 훈련" },
       { icon: "users", title: "자매 교제", desc: "따뜻한 나눔으로 서로를 품는 공동체" },
-      { icon: "sparkles", title: "사랑의 봉사", desc: "가정과 교회, 이웃을 향한 섬김의 손길" },
+      { icon: "hand-heart", title: "사랑의 봉사", desc: "가정과 교회, 이웃을 향한 섬김의 손길" },
     ],
     info: [
-      { label: "담당자", value: "여선교회 회장" },
-      { label: "모임 시간", value: "매월 둘째 주일 오후 (월례회)" },
-      { label: "연락처", value: "041-337-2298" },
-      { label: "모임 장소", value: "은샘침례교회 교육관" },
+      { icon: "clock", label: "모임 시간", value: "매월 둘째 주일 오후 (월례회)" },
+      { icon: "pin", label: "모임 장소", value: "은샘침례교회 교육관" },
+      { icon: "user", label: "담당자", value: "여선교회 회장" },
+      { icon: "phone", label: "연락처", value: "041-337-2298" },
     ],
     activities: [
       "월례회 및 기도 모임",
@@ -306,11 +307,13 @@ export const DEPT_PAGE = {
   more: "자세히 보기",
   leaderLabel: "인도",
   subHeading: "하위 부서",
+  inviteCall: "전화로 문의하기",
 } as const;
 
 // 상세 보강 섹션 헤딩 — 하드코딩 금지(컴포넌트가 아닌 상수에서 주입).
 export const DEPT_SECTIONS = {
   info: "알림 사항",
+  together: "이렇게 함께해요",
   activities: "주요 활동",
   programs: "특별 프로그램",
   gallery: "활동 사진",

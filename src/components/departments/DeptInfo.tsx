@@ -1,32 +1,48 @@
+import { Clock, MapPin, Phone, User, type LucideIcon } from "lucide-react";
 import { Container } from "@/components/shell/Container";
-import { Reveal } from "@/components/main/Reveal";
-import { Card } from "@/components/ui/Card";
 import { typo } from "@/constants/typography";
 import { cn } from "@/lib/utils";
 import type { DeptInfoItem } from "@/constants/departments";
 
-// 알림 사항 — 흰 밴드 위 bordered 카드(schedule-card 변형). label(muted) + value(ink).
-// 밴드 리듬: 초대(primary-soft) 직전 흰 섹션으로 교차 유지(가이드 밴드 리듬).
+// 아이콘은 직렬화 키를 컴포넌트에서 매핑(DeptFeatures와 동일 방식).
+const ICONS: Record<string, LucideIcon> = {
+  clock: Clock,
+  pin: MapPin,
+  user: User,
+  phone: Phone,
+};
+
+// 모임 안내 한 줄(dept-glance) — 히어로 바로 아래. 처음 오는 분이 가장 찾는 "언제·어디·누구"를 맨 앞에 둔다.
+// 헤딩은 시각적으로 숨기고(줄 자체가 안내라 제목이 과함) 문서 구조용으로만 남긴다.
 export function DeptInfo({ heading, items }: { heading: string; items: DeptInfoItem[] }) {
   return (
-    <section className="py-section">
-      <Container>
-        <Reveal>
-          <h2 className={cn(typo.displayMd, "text-ink")}>{heading}</h2>
-        </Reveal>
-        <div className="mt-lg grid gap-base sm:grid-cols-2">
-          {items.map((it, i) => (
-            <Reveal key={it.label} delay={i * 120} className="h-full">
-              <Card bordered className="h-full p-xl">
-                <dl>
-                  <dt className={cn(typo.bodyMd, "text-muted")}>{it.label}</dt>
-                  <dd className={cn(typo.titleMd, "mt-xs text-ink")}>{it.value}</dd>
-                </dl>
-              </Card>
-            </Reveal>
-          ))}
-        </div>
-      </Container>
-    </section>
+    <Container as="section" className="break-keep">
+      <h2 className="sr-only">{heading}</h2>
+      <dl className="grid border-b border-hairline md:grid-cols-4">
+        {items.map((it) => {
+          const Icon = ICONS[it.icon] ?? Clock;
+          return (
+            <div
+              key={it.label}
+              className="flex gap-sm border-t border-hairline py-lg md:border-t-0 md:border-l md:px-lg md:py-xl md:first:border-l-0 md:first:pl-0"
+            >
+              <Icon size={24} aria-hidden className="mt-xxs shrink-0 text-muted" />
+              <div>
+                <dt className={cn(typo.datetime, "text-muted")}>{it.label}</dt>
+                <dd className={cn(typo.titleMd, "mt-xxs text-ink")}>
+                  {it.icon === "phone" ? (
+                    <a href={`tel:${it.value}`} className="text-primary hover:underline">
+                      {it.value}
+                    </a>
+                  ) : (
+                    it.value
+                  )}
+                </dd>
+              </div>
+            </div>
+          );
+        })}
+      </dl>
+    </Container>
   );
 }

@@ -572,6 +572,13 @@ portal로 뜨는 동작 컴포넌트(Modal·Sheet·Popover·Select·Dropdown·To
   확장(width/height 애니메이션 금지), placeholder 측정으로 시작 inset 산출. 확장 종료(0.55) 후
   카피 페이드인(0.60~, 겹침 0.05 유지). reduced-motion은 정적 70vh. 검증 코드라 내부 수치(px·rgba·#fff)는
   토큰 인라인 금지의 예외. `HeroMedia`는 CrossHero와 공유(`@/hero/types`).
+- **`dept-detail`**: 부서 상세(`/departments/{slug}`) 공통 흐름(모든 부서 동일, "안내서"형). `dept-hero` → `dept-glance` → `dept-features` → `dept-gallery` → `dept-together` → (하위부서) → `dept-invite`.
+  카드 그리드를 쓰지 않는다(한 줄 항목엔 줄 목록). `description`(마크다운)은 `intro.lead`와 겹쳐 상세에 렌더하지 않는다. 공용 `cta-band-dark`는 이 페이지에서 빼고 `dept-invite`로 마무리한다(마무리 두 번 방지).
+  - **`dept-glance`**: 히어로 바로 아래 모임 안내 한 줄(헤딩 sr-only "알림 사항"). ≥48rem 4칸(1px 헤어라인 세로 구분), 그 미만 세로 쌓기. 칸 = lucide 아이콘(24, muted) + 항목명 `{typography.datetime}` muted + 값 `{typography.title-md}`. 순서 모임 시간·장소·담당·연락처(`DeptInfoItem.icon` = clock·pin·user·phone), 연락처는 `tel:` 링크(primary).
+  - **`dept-features`**: 좌 제목 `{typography.display-md}` + 리드 `{typography.body-lg}` : 우 번호 줄 목록 = 4:8(<64rem 세로 쌓기, `vision-goals` 결). 2px `{colors.ink}` 상단 룰, 행 = 번호(`01`~) `{typography.datetime}` muted + 제목 `{typography.title-lg}` + 설명 `{typography.body-md}` + 항목 뜻에 맞는 lucide 아이콘(28, primary).
+  - **`dept-gallery`**: `{colors.surface-soft}` 밴드 위 bento — 첫 장 2×2·넷째 장 가로 2칸(≥64rem 4열, 그 미만 2열), 모서리 `{rounded.xl}`. 클릭 시 라이트박스(좌우·키보드).
+  - **`dept-together`**: "이렇게 함께해요" 한 섹션에 주요 활동(체크 줄) : 특별 프로그램(이름 `{typography.title-md}` + 설명 `{typography.body-sm}` 줄) 2단(≥64rem). 각 칸 = 제목 `{typography.title-md}` + 2px ink 룰 아래 헤어라인 줄 목록.
+  - **`dept-invite`**: `{colors.surface-dark}` 밴드. 헤드라인 `{typography.display-lg}` on-dark + 본문 `{typography.body-lg}` on-dark-soft + 56px CTA 2개("전화로 문의하기" `tel:` primary · "오시는 길" outline-on-dark). 연락처가 없으면 오시는 길만.
 - **`department-card`**: 사역 부서 카드(목록·하위부서 공용). 16:9 부서 히어로 이미지 썸네일 + 이름
   `{typography.title-md}` + 인도자 `{typography.datetime}` `{colors.muted}`. `sermon-card` 호버(soft drop +
   썸네일 1.03 줌) 재사용. `/departments/{slug}`로 링크, 목록 카드 이미지 = 상세 히어로 이미지(목록↔상세 시각 연속성).
