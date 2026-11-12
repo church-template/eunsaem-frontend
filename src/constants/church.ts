@@ -53,7 +53,7 @@ export const COLLAGE_TILES: CollageScene[] = [
   { src: "/collage-1.jpeg", title: "새벽을 깨우는 기도", desc: "월~토 새벽 5:30, 하루를 말씀으로 엽니다" },
   { src: "/collage-2.jpeg", title: "함께 드리는 예배", desc: "온 세대가 한자리에 모이는 주일" },
   { src: "/collage-3.jpeg", title: "예배 후 쉼터", desc: "1층 쉼터에서 차 한 잔 나누는 시간" },
-  { src: "/collage-4.jpeg", title: "한 식탁의 교제", desc: "예배 후 함께 먹는 점심" },
+  { src: "/collage-4.jpeg", title: "한 식탁의 교제", desc: "한 달에 한 번, 예배 후 함께 먹는 점심" },
 ];
 
 // 교회 소재지·연락처 — 푸터·오시는 길에서 소비. 교회별 값이라 상수(env 아님, 스펙 D2).
