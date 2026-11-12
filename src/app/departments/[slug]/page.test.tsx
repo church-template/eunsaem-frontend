@@ -38,7 +38,8 @@ describe("DepartmentDetailPage (상세)", () => {
       await DepartmentDetailPage({ params: Promise.resolve({ slug: "student" }) }),
     );
     expect(screen.getByRole("heading", { name: student.name })).toBeDefined(); // 히어로 h1
-    expect(container.querySelector(".prose-church")?.textContent).toContain("말씀");
+    // 소개글이 intro.lead와 겹쳐 description(마크다운) 블록은 렌더하지 않는다
+    expect(container.querySelector(".prose-church")).toBeNull();
     // 실제 교회는 담당자·하위부서가 없어 해당 영역(인도 줄·하위부서 섹션)은 노출되지 않는다
     expect(screen.queryByText(/인도 ·/)).toBeNull();
     expect(screen.queryByRole("heading", { name: DEPT_PAGE.subHeading })).toBeNull();
@@ -46,11 +47,17 @@ describe("DepartmentDetailPage (상세)", () => {
     // 보강 섹션(학생부 상수 구동)이 노출된다
     expect(screen.getByRole("heading", { name: "알림 사항" })).toBeDefined();
     expect(screen.getByText("학생부 담당 선생님")).toBeDefined();
+    expect(screen.getByRole("heading", { name: "이렇게 함께해요" })).toBeDefined();
     expect(screen.getByRole("heading", { name: "주요 활동" })).toBeDefined();
     expect(screen.getByRole("heading", { name: "특별 프로그램" })).toBeDefined();
     expect(screen.getByRole("heading", { name: "여름 수련회" })).toBeDefined();
     expect(screen.getByRole("heading", { name: "활동 사진" })).toBeDefined();
     expect(screen.getByRole("heading", { name: "학생부에서 함께해요" })).toBeDefined();
+    // 모임 안내(알림 사항)가 소개보다 먼저 — 처음 오는 분이 가장 찾는 정보
+    const h2s = [...container.querySelectorAll("h2")].map((h) => h.textContent);
+    expect(h2s.indexOf("알림 사항")).toBeLessThan(h2s.indexOf("학생부 소개"));
+    // 초대 밴드가 마무리라 공용 CtaBand("처음 오셨나요?")는 이 페이지에서 빠진다
+    expect(screen.queryByRole("heading", { name: "처음 오셨나요?" })).toBeNull();
   });
 
   it("없는 slug면 notFound()", async () => {

@@ -11,7 +11,7 @@ const items: DeptProgram[] = [
 ];
 
 describe("DeptPrograms", () => {
-  it("헤딩과 프로그램 카드(이름+설명)를 렌더한다", () => {
+  it("헤딩과 프로그램 줄(이름+설명)을 렌더한다", () => {
     vi.stubGlobal("matchMedia", vi.fn(() => ({ matches: true })));
     render(<DeptPrograms heading="특별 프로그램" items={items} />);
     expect(screen.getByRole("heading", { name: "특별 프로그램" })).toBeDefined();

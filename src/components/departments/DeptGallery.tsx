@@ -32,16 +32,27 @@ export function DeptGallery({ heading, photos }: { heading: string; photos: Dept
     <section className="bg-surface-soft py-section">
       <Container>
         <h2 className={cn(typo.displayMd, "text-ink")}>{heading}</h2>
-        <div className="mt-lg grid grid-cols-2 gap-xs sm:grid-cols-3 lg:grid-cols-4">
+        {/* 큰 사진 하나 + 작은 사진 묶음(bento). 4장 기준: 첫 장 2×2, 넷째 장 가로 2칸 — 5장째부터는 정사각 칸으로 이어진다. */}
+        <div className="mt-xxl grid grid-cols-2 gap-sm lg:grid-cols-4">
           {photos.map((p, i) => (
             <button
               key={p.src}
               type="button"
               onClick={() => setIndex(i)}
               aria-label={`${i + 1}번째 사진 크게 보기`}
-              className={cn("block w-full", focusRing)}
+              className={cn(
+                "block w-full",
+                i === 0 && "col-span-2 lg:row-span-2",
+                i === 3 && "col-span-2",
+                focusRing,
+              )}
             >
-              <span className="block aspect-square overflow-hidden rounded-md">
+              <span
+                className={cn(
+                  "block h-full overflow-hidden rounded-xl",
+                  i === 0 || i === 3 ? "aspect-video lg:aspect-auto" : "aspect-[4/3]",
+                )}
+              >
                 {/* eslint-disable-next-line @next/next/no-img-element -- 프레젠테이션 셸 */}
                 <img
                   src={p.src}

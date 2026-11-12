@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { SiteHeader } from "@/components/shell/SiteHeader";
 import { Container } from "@/components/shell/Container";
-import { CtaBand } from "@/components/shell/CtaBand";
 import { SiteFooter } from "@/components/shell/SiteFooter";
-import { MarkdownContent } from "@/components/common/MarkdownContent";
+import { typo } from "@/constants/typography";
+import { cn } from "@/lib/utils";
 import DeptHero from "@/hero/DeptHero";
 import { DeptLeader } from "@/components/departments/DeptLeader";
 import { SubDepartments } from "@/components/departments/SubDepartments";
@@ -67,13 +67,14 @@ export default async function DepartmentDetailPage({
       <SiteHeader variant="transparent" solid />
       <main className="flex-1">
         <DeptHero title={dept.name} caption={caption} media={dept.media} />
-        <Container as="section" className="py-section">
-          {dept.leader ? <DeptLeader name={dept.leader} /> : null}
-          {dept.description ? (
-            <MarkdownContent source={dept.description} className="mt-base" />
-          ) : null}
-        </Container>
-        {/* 서사 퍼널: 소개 → 사진(감정 후크) → 활동·프로그램(무엇을) → 알림(언제/어디서) → 초대. */}
+        {/* 안내서 흐름: 모임 안내(언제·어디) → 소개 → 사진 → 함께하는 일 → 초대.
+            description(마크다운)은 intro.lead와 내용이 겹쳐 상세에선 렌더하지 않는다. */}
+        {dept.info?.length ? <DeptInfo heading={DEPT_SECTIONS.info} items={dept.info} /> : null}
+        {dept.leader ? (
+          <Container className="pt-xl">
+            <DeptLeader name={dept.leader} />
+          </Container>
+        ) : null}
         {dept.intro && dept.features?.length ? (
           <DeptFeatures
             heading={dept.intro.heading}
@@ -84,19 +85,29 @@ export default async function DepartmentDetailPage({
         {dept.gallery?.length ? (
           <DeptGallery heading={DEPT_SECTIONS.gallery} photos={dept.gallery} />
         ) : null}
-        {dept.activities?.length ? (
-          <DeptActivities heading={DEPT_SECTIONS.activities} items={dept.activities} />
-        ) : null}
-        {dept.programs?.length ? (
-          <DeptPrograms heading={DEPT_SECTIONS.programs} items={dept.programs} />
-        ) : null}
-        {dept.info?.length ? <DeptInfo heading={DEPT_SECTIONS.info} items={dept.info} /> : null}
-        {dept.invite ? (
-          <DeptInvite heading={dept.invite.heading} body={dept.invite.body} />
+        {dept.activities?.length || dept.programs?.length ? (
+          <Container as="section" className="break-keep py-section">
+            <h2 className={cn(typo.displayMd, "text-ink")}>{DEPT_SECTIONS.together}</h2>
+            <div className="mt-xxl grid gap-xxl lg:grid-cols-2">
+              {dept.activities?.length ? (
+                <DeptActivities heading={DEPT_SECTIONS.activities} items={dept.activities} />
+              ) : null}
+              {dept.programs?.length ? (
+                <DeptPrograms heading={DEPT_SECTIONS.programs} items={dept.programs} />
+              ) : null}
+            </div>
+          </Container>
         ) : null}
         {dept.children?.length ? <SubDepartments items={dept.children} /> : null}
+        {/* 초대 밴드가 마무리 CTA라 공용 CtaBand는 두지 않는다(마무리 두 번 방지). */}
+        {dept.invite ? (
+          <DeptInvite
+            heading={dept.invite.heading}
+            body={dept.invite.body}
+            phone={dept.info?.find((it) => it.icon === "phone")?.value}
+          />
+        ) : null}
       </main>
-      <CtaBand />
       <SiteFooter />
     </>
   );

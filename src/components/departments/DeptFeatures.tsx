@@ -1,25 +1,40 @@
-import { BookOpen, Sparkles, Users, type LucideIcon } from "lucide-react";
+import {
+  BookOpen,
+  Compass,
+  Hammer,
+  Handshake,
+  HandHeart,
+  MessagesSquare,
+  Mic,
+  Music,
+  Sparkles,
+  Speaker,
+  Users,
+  type LucideIcon,
+} from "lucide-react";
 import { Container } from "@/components/shell/Container";
 import { Reveal } from "@/components/main/Reveal";
 import { typo } from "@/constants/typography";
 import { cn } from "@/lib/utils";
 import type { DeptFeature } from "@/constants/departments";
 
-// 아이콘은 직렬화 키를 컴포넌트에서 매핑(MinistryCards와 동일 방식). 색은 currentColor 상속.
+// 아이콘은 직렬화 키를 컴포넌트에서 매핑. 부서마다 항목 뜻에 맞는 아이콘을 고르도록 키를 넓혔다.
 const ICONS: Record<string, LucideIcon> = {
   book: BookOpen,
   users: Users,
   sparkles: Sparkles,
+  messages: MessagesSquare,
+  compass: Compass,
+  mic: Mic,
+  music: Music,
+  speaker: Speaker,
+  handshake: Handshake,
+  hammer: Hammer,
+  "hand-heart": HandHeart,
 };
 
-// 카드 배경 토큰 교차 — MinistryCards와 동일(단일 액센트 원칙).
-const TONES = [
-  { card: "bg-primary-soft", head: "text-ink", body: "text-body" },
-  { card: "bg-surface-soft", head: "text-ink", body: "text-body" },
-  { card: "bg-surface-dark", head: "text-on-dark", body: "text-on-dark-soft" },
-] as const;
-
-// 부서 인트로 헤딩·리드 + 3-up 기능 카드(WorshipRegular의 제목+리드+카드 패턴).
+// 부서 소개(dept-features) — 좌 제목·리드 : 우 번호 줄 목록 = 4:8(vision-goals 결).
+// 한 줄 항목이라 카드 대신 줄로 — 카드 틀이 내용보다 무거워지지 않게.
 export function DeptFeatures({
   heading,
   lead,
@@ -30,26 +45,30 @@ export function DeptFeatures({
   items: DeptFeature[];
 }) {
   return (
-    <Container as="section" className="break-keep py-section">
-      <Reveal>
+    <Container as="section" className="grid gap-xxl break-keep py-section lg:grid-cols-12">
+      <Reveal className="lg:col-span-4">
         <h2 className={cn(typo.displayMd, "text-ink")}>{heading}</h2>
         {lead ? <p className={cn(typo.bodyLg, "mt-base text-body")}>{lead}</p> : null}
       </Reveal>
-      <div className="mt-lg grid gap-base sm:grid-cols-3">
+      <ol className="border-t-2 border-ink lg:col-span-8">
         {items.map((f, i) => {
-          const tone = TONES[i % TONES.length];
           const Icon = ICONS[f.icon] ?? BookOpen;
           return (
-            <Reveal key={f.title} delay={i * 120} className="h-full">
-              <div className={cn("h-full rounded-xl p-xl", tone.card, tone.head)}>
-                <Icon size={32} aria-hidden />
-                <h3 className={cn(typo.titleLg, "mt-base")}>{f.title}</h3>
-                <p className={cn(typo.bodyMd, "mt-xs", tone.body)}>{f.desc}</p>
-              </div>
-            </Reveal>
+            <li key={f.title} className="border-b border-hairline">
+              <Reveal delay={i * 120} className="flex gap-base py-xl">
+                <span className={cn(typo.datetime, "w-10 shrink-0 pt-xxs text-muted")}>
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <div className="flex-1">
+                  <h3 className={cn(typo.titleLg, "text-ink")}>{f.title}</h3>
+                  <p className={cn(typo.bodyMd, "mt-xxs text-body")}>{f.desc}</p>
+                </div>
+                <Icon size={28} aria-hidden className="shrink-0 text-primary" />
+              </Reveal>
+            </li>
           );
         })}
-      </div>
+      </ol>
     </Container>
   );
 }

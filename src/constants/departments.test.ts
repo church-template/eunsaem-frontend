@@ -73,12 +73,8 @@ describe("사역 부서 상수", () => {
     expect(student.intro?.heading).toBe("학생부 소개");
     expect(student.features).toHaveLength(3);
     expect(student.features?.[0]).toMatchObject({ icon: "book", title: "청소년 신앙 교육" });
-    expect(student.info?.map((i) => i.label)).toEqual([
-      "담당자",
-      "모임 시간",
-      "연락처",
-      "모임 장소",
-    ]);
+    // 처음 오는 분이 찾는 순서(언제·어디·누구·문의) — 모임 안내 줄이 이 순서로 보인다
+    expect(student.info?.map((i) => i.label)).toEqual(["모임 시간", "모임 장소", "담당자", "연락처"]);
     expect(student.activities).toHaveLength(4);
     expect(student.programs).toHaveLength(4);
     expect(student.gallery?.length).toBeGreaterThan(0);
