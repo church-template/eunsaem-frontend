@@ -1,7 +1,22 @@
 # Changelog
 
-**현재 버전:** 0.1.95  
-**마지막 업데이트:** 2026-11-12T11:17:36Z  
+**현재 버전:** 0.1.96  
+**마지막 업데이트:** 2026-11-13T05:27:03Z  
+
+---
+
+## [0.1.96] - 2026-11-13
+
+**PR:** #168  
+
+**새 기능**
+- 부서 상세 페이지 안내서형 리디자인 https://github.com/church-template/eunsaem-frontend/issues/166
+
+**문서**
+- 부서 상세 리디자인 이슈·리포트 문서 추가 https://github.com/church-template/eunsaem-frontend/issues/166
+
+**기타**
+- Merge pull request #167 from church-template/20261112_#166_디자인_사역_부서_상세_페이지_안내서형_리디자인
 
 ---
 
