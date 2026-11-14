@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { renderMarkdown, splitYouTubeSegments } from "./markdown";
 
 describe("renderMarkdown", () => {
@@ -21,6 +21,21 @@ describe("renderMarkdown", () => {
   it("media:{id}를 공개 서빙 URL로 치환한다", () => {
     const html = renderMarkdown("![포스터](media:42)");
     expect(html).toContain('src="/api/media/42"');
+  });
+
+  it("API 베이스(교회 접두사 포함)가 있으면 media:{id}를 그 베이스를 거친 전체 주소로 치환한다", async () => {
+    // API_BASE는 모듈 로드 시 env를 읽으므로, env를 바꾼 뒤 모듈을 새로 불러온다.
+    vi.stubEnv("NEXT_PUBLIC_API_BASE", "https://api.example.com/church/eunsaem");
+    vi.resetModules();
+    try {
+      const { renderMarkdown: render } = await import("./markdown");
+      const html = render("![포스터](media:42)\n\n[주보](media:7)");
+      expect(html).toContain('src="https://api.example.com/church/eunsaem/api/media/42"');
+      expect(html).toContain('href="https://api.example.com/church/eunsaem/api/media/7"');
+    } finally {
+      vi.unstubAllEnvs();
+      vi.resetModules();
+    }
   });
 
   it("본문 null·빈 문자열은 빈 HTML을 반환한다(서버 content null 500 방어)", () => {

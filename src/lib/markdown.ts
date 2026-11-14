@@ -1,3 +1,4 @@
+import { apiUrl } from "@/lib/auth/apiBase";
 import { marked } from "marked";
 import DOMPurify from "isomorphic-dompurify";
 import { parseYouTubeId } from "./youtube";
@@ -54,7 +55,8 @@ export function splitYouTubeSegments(raw: string | null | undefined): MarkdownSe
 
 export function renderMarkdown(raw: string | null | undefined): string {
   if (!raw) return ""; // 서버가 본문 없음을 null로 내려준다(설교 content 등) — replace 크래시 방어
-  const withUrls = raw.replace(MEDIA_REF, (_, id) => `/api/media/${id}`); // 1) media:{id} → 공개 URL
+  // 1) media:{id} → 공개 URL. API 베이스(교회 접두사 포함)를 거쳐야 백엔드를 향한다 — 상대경로로 두면 프론트 도메인을 향한다.
+  const withUrls = raw.replace(MEDIA_REF, (_, id) => apiUrl(`/api/media/${id}`));
   const html = marked.parse(withUrls, { async: false }) as string;        // 2) MD → HTML
   return DOMPurify.sanitize(html, { ALLOWED_TAGS, ALLOWED_ATTR });        // 3) 마크다운 태그만 허용(raw HTML 제거)
 }

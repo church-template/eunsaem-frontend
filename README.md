@@ -85,7 +85,7 @@ pnpm dev               # http://localhost:3000
 | `pnpm lint` | ESLint |
 | `pnpm test` / `pnpm test:watch` | Vitest |
 
-`.env.example`의 변수는 `NEXT_PUBLIC_API_BASE`(필수, 빌드 시점에 인라인됨)와 검색엔진 소유 확인용 `GOOGLE_SITE_VERIFICATION`·`NAVER_SITE_VERIFICATION`(선택)입니다.
+`.env.example`의 변수는 `NEXT_PUBLIC_API_BASE`(필수, 빌드 시점에 인라인됨 — 운영 값은 교회 접두사를 포함한 `https://<공용 API>/church/<교회키>`)와 검색엔진 소유 확인용 `GOOGLE_SITE_VERIFICATION`·`NAVER_SITE_VERIFICATION`(선택)입니다.
 
 ## 구조
 
