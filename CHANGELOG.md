@@ -1,7 +1,22 @@
 # Changelog
 
-**현재 버전:** 0.1.96  
-**마지막 업데이트:** 2026-11-13T05:27:03Z  
+**현재 버전:** 0.1.97  
+**마지막 업데이트:** 2026-11-14T14:08:49Z  
+
+---
+
+## [0.1.97] - 2026-11-14
+
+**PR:** #171  
+
+**새 기능**
+- 마이페이지 관리 화면을 왼쪽 메뉴·관리 찾기 구성으로 개편 https://github.com/church-template/eunsaem-frontend/issues/169
+
+**문서**
+- 마이페이지 가독성 개선 이슈·리포트 문서 추가 https://github.com/church-template/eunsaem-frontend/issues/169
+
+**기타**
+- Merge pull request #170 from church-template/20261114_#169_디자인_마이페이지_마이페이지_관리_화면_가독성_개선
 
 ---
 
