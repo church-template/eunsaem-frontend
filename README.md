@@ -145,6 +145,6 @@ src/
 ---
 
 <!-- AUTO-VERSION-SECTION: DO NOT EDIT MANUALLY -->
-## 최신 버전 : v0.1.97 (2026-11-14)
+## 최신 버전 : v0.1.98 (2026-11-14)
 
 [전체 버전 기록 보기](CHANGELOG.md)
