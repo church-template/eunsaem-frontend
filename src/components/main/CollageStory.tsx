@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, type CSSProperties } from "react";
+import { useContext, useEffect, useRef, type CSSProperties } from "react";
 import { Container } from "@/components/shell/Container";
 import { typo } from "@/constants/typography";
 import { cn } from "@/lib/utils";
@@ -8,6 +8,7 @@ import { COLLAGE_SECTION } from "@/constants/content";
 import { COLLAGE_TILES } from "@/constants/church";
 import { clamp01, segment } from "@/hero/scrub";
 import { useMediaFlag, REDUCED_MQ } from "@/lib/hooks/useMediaFlag";
+import { HeaderOverlayContext } from "./HeroHeaderSync";
 import styles from "./CollageStory.module.css";
 
 // 한 전환(장면 k → k+1) 안의 구간. 앞뒤 여백은 머무는 구간(글 읽는 시간).
@@ -40,6 +41,7 @@ export function CollageStory() {
   const rootRef = useRef<HTMLElement>(null);
   const stickyRef = useRef<HTMLDivElement>(null);
   const reduced = useMediaFlag(REDUCED_MQ);
+  const setHeaderCovered = useContext(HeaderOverlayContext);
 
   useEffect(() => {
     if (reduced) return;
@@ -48,6 +50,7 @@ export function CollageStory() {
     const scenes = [...root.querySelectorAll<HTMLElement>("[data-scene]")];
     const caps = [...root.querySelectorAll<HTMLElement>("[data-cap]")];
     let ticking = false;
+    let covering = false;
 
     const update = () => {
       ticking = false;
@@ -62,6 +65,13 @@ export function CollageStory() {
       caps.forEach((el, i) => {
         el.style.opacity = String(caption[i]);
       });
+      // 사진이 헤더 밑을 덮는 동안만 헤더를 투명으로(히어로와 같은 결) — 바뀔 때만 통지해 리렌더를 아낀다
+      const navH = document.querySelector("header")?.offsetHeight ?? 0;
+      const next = rect.top <= 0 && rect.bottom > navH;
+      if (next !== covering) {
+        covering = next;
+        setHeaderCovered(next);
+      }
     };
     const onScroll = () => {
       if (!ticking) {
@@ -78,6 +88,7 @@ export function CollageStory() {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
       delete root.dataset.armed;
+      setHeaderCovered(false);
       // 정적 목록으로 돌아갈 때 스테일 인라인이 장면을 가리지 않게 지운다
       scenes.forEach((el) => {
         el.style.opacity = "";
@@ -87,7 +98,7 @@ export function CollageStory() {
         el.style.opacity = "";
       });
     };
-  }, [reduced]);
+  }, [reduced, setHeaderCovered]);
 
   return (
     <section

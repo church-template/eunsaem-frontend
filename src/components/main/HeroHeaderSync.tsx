@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useSyncExternalStore, type ReactNode } from "react";
+import { createContext, useState, useSyncExternalStore, type ReactNode } from "react";
 import { SiteHeader } from "@/components/shell/SiteHeader";
 import HeroReveal from "@/hero/HeroReveal";
 import type { HeroMedia } from "@/hero/types";
@@ -19,6 +19,9 @@ function useReducedMotion(): boolean {
     () => false,
   );
 }
+
+// 히어로 뒤 풀블리드 장면(CollageStory)이 헤더 밑을 덮는 동안 헤더를 다시 투명으로 돌리는 통지 채널.
+export const HeaderOverlayContext = createContext<(covering: boolean) => void>(() => {});
 
 export interface HeroHeaderSyncProps {
   media: HeroMedia;
@@ -40,10 +43,11 @@ export function HeroHeaderSync({
 }: HeroHeaderSyncProps) {
   const reduced = useReducedMotion();
   const [solid, setSolid] = useState(false);
+  const [covered, setCovered] = useState(false);
 
   return (
     <>
-      <SiteHeader variant="transparent" solid={reduced || solid} />
+      <SiteHeader variant="transparent" solid={reduced || (solid && !covered)} />
       <main className="flex-1">
         <HeroReveal
           media={media}
@@ -51,7 +55,7 @@ export function HeroHeaderSync({
           posterAspect={posterAspect}
           onSolid={setSolid}
         />
-        {children}
+        <HeaderOverlayContext.Provider value={setCovered}>{children}</HeaderOverlayContext.Provider>
       </main>
     </>
   );

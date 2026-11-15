@@ -49,14 +49,14 @@
 }
 .root[data-armed] .sticky {
   position: sticky;
-  top: var(--spacing-nav); /* 고정 헤더 아래부터 — 사진이 헤더 밑에 가려지지 않게 */
-  height: calc(100vh - var(--spacing-nav));
-  height: calc(100dvh - var(--spacing-nav));
+  top: 0; /* 히어로처럼 화면 전체 — 덮는 동안 헤더는 투명(CollageStory → HeroHeaderSync) */
+  height: 100vh;
+  height: 100dvh;
   overflow: hidden;
 }
 .root[data-armed] .head {
   position: absolute;
-  inset: var(--spacing-xl) 0 auto;
+  inset: calc(var(--spacing-nav) + var(--spacing-base)) 0 auto; /* 투명 헤더 바로 아래 */
   z-index: 2;
 }
 .root[data-armed] .scenes {
@@ -89,7 +89,7 @@
   inset: 0;
   background:
     linear-gradient(to top, color-mix(in srgb, var(--color-surface-dark) 88%, transparent), transparent 55%),
-    linear-gradient(to bottom, color-mix(in srgb, var(--color-surface-dark) 55%, transparent), transparent 30%);
+    linear-gradient(to bottom, color-mix(in srgb, var(--color-surface-dark) 65%, transparent), transparent 35%); /* 투명 헤더 글자까지 읽히게 */
 }
 .root[data-armed] .capWrap {
   position: absolute;
