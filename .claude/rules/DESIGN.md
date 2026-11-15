@@ -517,7 +517,7 @@ portal로 뜨는 동작 컴포넌트(Modal·Sheet·Popover·Select·Dropdown·To
 ### 연출
 - **`collage-story`** (홈 "이렇게 모이고, 나눕니다", 히어로 바로 다음): 전체 화면 사진 장면 섹션. 이전 `media-collage`(히어로 끝에서 영상이
   사진 4장 격자로 흩어지던 스크럽)를 대체한다 — 히어로는 십자가 → 카피 → 포스터까지만 하고 포스터째 위로 빠진다(#157).
-  히어로와 같은 뼈대: 섹션을 화면에 고정(sticky, 헤더 아래 `100dvh - {spacing.nav}`)하고 스크롤 진행도로 스크럽한다(섹션 길이 = 장면 수 × 100vh).
+  히어로와 같은 뼈대: 섹션을 화면 전체에 고정(sticky top 0, `100dvh` — 덮는 동안 헤더는 `top-nav-transparent`로 돌아간다)하고 스크롤 진행도로 스크럽한다(섹션 길이 = 장면 수 × 100vh).
   사진 한 장이 화면 전체이고, 스크롤하면 다음 사진이 **제자리에서 페이드**로 얹힌다 — 모양·크기·위치는 움직이지 않는다(어지럽지 않게, 십자가 재사용 없음).
   좌상단 서브타이틀 + 제목(h2) 한 줄 `{typography.title-md}` on-dark / on-dark-soft, 좌하단 장면 글 = 번호 `{typography.datetime}` `{colors.primary-on-dark}` +
   제목 `{typography.display-lg}`(h3) on-dark + 설명 `{typography.body-lg}` on-dark-soft. 글은 사진이 바뀌기 전에 꺼지고 바뀐 뒤에 켜진다(두 글이 겹쳐 보이지 않게).
