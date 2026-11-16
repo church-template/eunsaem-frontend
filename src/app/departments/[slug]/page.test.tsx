@@ -79,13 +79,12 @@ describe("DepartmentDetailPage (상세)", () => {
     expect(params).toContainEqual({ slug: "women" });
   });
 
-  it("백엔드 id가 없으면 API를 부르지 않고 수정 버튼도 없다(상수 그대로)", async () => {
+  it("부서 API 조회가 실패하면 상수 소개 그대로 보인다", async () => {
     stubBrowserApis();
-    const spy = vi.fn();
+    const spy = vi.fn(async () => ({ ok: false, status: 500, json: async () => ({}) }));
     vi.stubGlobal("fetch", spy);
     render(await DepartmentDetailPage({ params: Promise.resolve({ slug: "student" }) }));
-    expect(spy).not.toHaveBeenCalled();
-    expect(screen.queryByTestId("dept-edit")).toBeNull();
+    expect(spy).toHaveBeenCalled();
     expect(screen.getByText(student.intro!.lead)).toBeDefined();
   });
 

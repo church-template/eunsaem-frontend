@@ -44,7 +44,7 @@ const WORSHIP_LINKS: NavLink[] = [
   { label: "성경통독", href: "/challenges", icon: "bookOpenCheck" },
   { label: "차량 신청", href: "/vehicle-runs", icon: "bus" },
 ];
-// 사역 부서 — slug는 constants/departments.ts의 DEPARTMENTS와 일치(navigation.test가 드리프트 감시).
+// 부서 — slug는 constants/departments.ts의 DEPARTMENTS와 일치(navigation.test가 드리프트 감시).
 const MINISTRY_LINKS: NavLink[] = [
   { label: "학생부", href: "/departments/student", icon: "bookOpen" },
   { label: "청년부", href: "/departments/youth", icon: "users" },
@@ -62,7 +62,7 @@ const NEWS_LINKS: NavLink[] = [
 export const NAV_PRIMARY: NavItem[] = [
   { label: "교회안내", href: "/about", children: ABOUT_LINKS },
   { label: "예배·설교", href: "/worship", children: WORSHIP_LINKS },
-  { label: "사역", href: "/departments", children: MINISTRY_LINKS },
+  { label: "부서", href: "/departments", children: MINISTRY_LINKS },
   { label: "교회소식", href: "/notices", children: NEWS_LINKS },
 ];
 
@@ -73,6 +73,6 @@ export const NAV_MYPAGE: NavLink = { label: "마이페이지", href: "/mypage" }
 export const FOOTER_COLUMNS: { title: string; links: NavLink[] }[] = [
   { title: "교회안내", links: ABOUT_LINKS },
   { title: "예배·설교", links: WORSHIP_LINKS },
-  { title: "사역", links: MINISTRY_LINKS },
+  { title: "부서", links: MINISTRY_LINKS },
   { title: "교회소식", links: NEWS_LINKS },
 ];

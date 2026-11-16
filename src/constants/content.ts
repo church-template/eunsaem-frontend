@@ -505,7 +505,7 @@ export const MINISTRIES: Ministry[] = [
     desc: "영유아부터 청년까지 세대별 교육으로 신앙을 세웁니다.",
     image: "/dept/student.webp",
     href: "/departments",
-    cta: "사역 부서 보기",
+    cta: "부서 보기",
   },
   {
     key: "serving",
