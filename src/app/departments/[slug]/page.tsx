@@ -96,7 +96,7 @@ export default async function DepartmentDetailPage({
           />
         ) : null}
         {gallery?.length ? (
-          <DeptGallery heading={DEPT_SECTIONS.gallery} photos={gallery} />
+          <DeptGallery heading={DEPT_SECTIONS.gallery} photos={gallery} moreLabel={DEPT_SECTIONS.galleryMore} />
         ) : null}
         {dept.activities?.length || dept.programs?.length ? (
           <Container as="section" className="break-keep py-section">

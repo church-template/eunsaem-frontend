@@ -332,8 +332,8 @@ export const WORSHIP = {
   placeHeading: "예배 장소 안내",
   placeLead: "모든 예배는 교회에서 진행됩니다.",
   placeLandmark: "유리 건물",
-  // 히어로 사진 — 주일예배 사진 미수령이라 예배부 활동 사진(본당 예배 장면)을 임시로 쓴다.
-  hero: { src: "/dept/praise/1.webp", alt: "본당에서 드리는 예배" },
+  // 히어로 사진 — 주일예배 사진 미수령이라 예배부 활동 사진(본당 예배 장면)을 임시로 쓴다. 활동 사진은 서버로 옮겨 이 파일만 남겼다.
+  hero: { src: "/worship-hero.webp", alt: "본당에서 드리는 예배" },
   nextLabel: "다음 예배",
   // 홈 예배 섹션의 요일 칩 — 누른 요일에 드리는 예배만 켠다.
   dayFilterLabel: "요일별 예배 보기",

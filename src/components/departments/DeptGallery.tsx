@@ -14,9 +14,21 @@ const focusRing =
 
 // 활동 사진 — 회색 밴드(풀블리드) 위 그리드 + 확대 모달(ChurchPhotos 라이트박스 패턴, 카테고리 탭 없음).
 // 소개 직후 배치라 감정 후크를 조기 노출하고, 밴드 리듬(흰↔회색 교차)을 위해 surface-soft 밴드로 감싼다.
-// 정적 public 에셋을 <img>로 직접 렌더(멤버 갤러리 PhotoLightbox와 분리).
-export function DeptGallery({ heading, photos }: { heading: string; photos: DeptPhoto[] }) {
+// 관리 화면에서 연결한 앨범 사진을 <img>로 직접 렌더(멤버 갤러리 PhotoLightbox와 분리).
+// 한 번에 PAGE장씩 — 더 보기로 다음 장들을 연다(새누리 dept-gallery와 같은 규칙). 라이트박스는 전체 사진을 넘긴다.
+const PAGE = 8;
+
+export function DeptGallery({
+  heading,
+  photos,
+  moreLabel = "더 보기",
+}: {
+  heading: string;
+  photos: DeptPhoto[];
+  moreLabel?: string;
+}) {
   const [index, setIndex] = useState<number | null>(null);
+  const [shown, setShown] = useState(PAGE);
   const open = index !== null;
   const current = open ? photos[index] : null;
   const hasPrev = open && index > 0;
@@ -32,9 +44,9 @@ export function DeptGallery({ heading, photos }: { heading: string; photos: Dept
     <section className="bg-surface-soft py-section">
       <Container>
         <h2 className={cn(typo.displayMd, "text-ink")}>{heading}</h2>
-        {/* 큰 사진 하나 + 작은 사진 묶음(bento). 4장 기준: 첫 장 2×2, 넷째 장 가로 2칸 — 5장째부터는 정사각 칸으로 이어진다. */}
+        {/* 큰 사진 하나 + 작은 사진 묶음(bento). 첫 장 2×2, 넷째 장 가로 2칸 — 5장째부터는 4:3 칸으로 이어진다(8장이면 두 줄 + 한 줄). */}
         <div className="mt-xxl grid grid-cols-2 gap-sm lg:grid-cols-4">
-          {photos.map((p, i) => (
+          {photos.slice(0, shown).map((p, i) => (
             <button
               key={p.src}
               type="button"
@@ -57,12 +69,20 @@ export function DeptGallery({ heading, photos }: { heading: string; photos: Dept
                 <img
                   src={p.src}
                   alt={p.alt}
+                  loading="lazy"
                   className="h-full w-full object-cover transition-transform duration-300 ease-out hover:scale-[1.03]"
                 />
               </span>
             </button>
           ))}
         </div>
+        {shown < photos.length ? (
+          <div className="mt-lg flex justify-center">
+            <Button type="button" variant="secondary" onClick={() => setShown((n) => n + PAGE)}>
+              {moreLabel}
+            </Button>
+          </div>
+        ) : null}
 
         <Dialog
           open={open}
