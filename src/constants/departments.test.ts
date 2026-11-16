@@ -68,7 +68,7 @@ describe("사역 부서 상수", () => {
     expect(DEPT_PAGE.subHeading.length).toBeGreaterThan(0);
   });
 
-  it("학생부는 보강 섹션 데이터(intro·features·info·activities·programs·gallery·invite)를 보유한다", () => {
+  it("학생부는 보강 섹션 데이터(intro·features·info·activities·programs·invite)를 보유한다", () => {
     const student = findDepartment("student")!;
     expect(student.intro?.heading).toBe("학생부 소개");
     expect(student.features).toHaveLength(3);
@@ -77,8 +77,11 @@ describe("사역 부서 상수", () => {
     expect(student.info?.map((i) => i.label)).toEqual(["모임 시간", "모임 장소", "담당자", "연락처"]);
     expect(student.activities).toHaveLength(4);
     expect(student.programs).toHaveLength(4);
-    expect(student.gallery?.length).toBeGreaterThan(0);
     expect(student.invite?.heading).toBe("학생부에서 함께해요");
+  });
+
+  it("활동 사진은 정적 파일 없이 관리 화면 앨범으로만 받는다", () => {
+    expect(DEPARTMENTS.every((d) => !d.gallery?.length)).toBe(true);
   });
 
   it("섹션 헤딩 상수를 노출한다(하드코딩 0)", () => {
@@ -86,5 +89,6 @@ describe("사역 부서 상수", () => {
     expect(DEPT_SECTIONS.activities.length).toBeGreaterThan(0);
     expect(DEPT_SECTIONS.programs.length).toBeGreaterThan(0);
     expect(DEPT_SECTIONS.gallery.length).toBeGreaterThan(0);
+    expect(DEPT_SECTIONS.galleryMore).toBe("사진 더 보기");
   });
 });

@@ -56,7 +56,8 @@ describe("DepartmentDetailPage (상세)", () => {
     expect(screen.getByRole("heading", { name: "주요 활동" })).toBeDefined();
     expect(screen.getByRole("heading", { name: "특별 프로그램" })).toBeDefined();
     expect(screen.getByRole("heading", { name: "여름 수련회" })).toBeDefined();
-    expect(screen.getByRole("heading", { name: "활동 사진" })).toBeDefined();
+    // 활동 사진은 정적 파일이 없어 관리 화면에서 앨범을 연결하기 전엔 구간째 숨는다
+    expect(screen.queryByRole("heading", { name: "활동 사진" })).toBeNull();
     expect(screen.getByRole("heading", { name: "학생부에서 함께해요" })).toBeDefined();
     // 모임 안내(알림 사항)가 소개보다 먼저 — 처음 오는 분이 가장 찾는 정보
     const h2s = [...container.querySelectorAll("h2")].map((h) => h.textContent);

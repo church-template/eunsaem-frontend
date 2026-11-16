@@ -51,7 +51,7 @@ export interface Department {
 
 const FALLBACK_THUMB = "/dept/default.webp";
 
-// 히어로는 풀스크린이라 2000px, 갤러리(public/dept/{slug}/{n}.webp)는 1600px WebP로 압축해 둔다.
+// 히어로는 풀스크린이라 2000px WebP로 압축해 둔다. 활동 사진은 정적 파일 없이 관리 화면 앨범(API)으로만 받는다.
 const img = (slug: string, name: string): HeroMedia => ({
   type: "image",
   src: `/dept/${slug}.webp`,
@@ -99,12 +99,6 @@ export const DEPARTMENTS: Department[] = [
       { name: "찬양 경연대회", desc: "학생들의 재능을 발휘하는 특별한 무대" },
       { name: "배드민턴 프로그램", desc: "학생 예배 후에 하는 재밌는 배드민턴 운동" },
     ],
-    gallery: [
-      { src: "/dept/student/1.webp", alt: "학생부 활동 사진 1" },
-      { src: "/dept/student/2.webp", alt: "학생부 활동 사진 2" },
-      { src: "/dept/student/3.webp", alt: "학생부 활동 사진 3" },
-      { src: "/dept/student/4.webp", alt: "학생부 활동 사진 4" },
-    ],
     invite: {
       heading: "학생부에서 함께해요",
       body: "중·고등학생 친구들! 새로운 친구들과 만나고, 재미있는 활동을 통해 신앙을 배워나가세요. 또래 친구들과 함께 하나님의 사랑을 경험하며, 언제든지 편안하게 참여하실 수 있습니다.",
@@ -146,12 +140,6 @@ export const DEPARTMENTS: Department[] = [
       { name: "비전 캠프", desc: "삶의 방향과 소명을 함께 찾는 시간" },
       { name: "제자 훈련", desc: "말씀 안에서 그리스도의 제자로 세워지는 과정" },
       { name: "청년 찬양의 밤", desc: "찬양으로 마음을 모아 하나님께 드리는 예배" },
-    ],
-    gallery: [
-      { src: "/dept/youth/1.webp", alt: "청년부 활동 사진 1" },
-      { src: "/dept/youth/2.webp", alt: "청년부 활동 사진 2" },
-      { src: "/dept/youth/3.webp", alt: "청년부 활동 사진 3" },
-      { src: "/dept/youth/4.webp", alt: "청년부 활동 사진 4" },
     ],
     invite: {
       heading: "청년부에서 함께해요",
@@ -195,12 +183,6 @@ export const DEPARTMENTS: Department[] = [
       { name: "워십 워크숍", desc: "찬양과 연주 실력을 함께 다듬는 시간" },
       { name: "신입 팀원 훈련", desc: "새로 섬기는 지체를 위한 기초 훈련" },
     ],
-    gallery: [
-      { src: "/dept/praise/1.webp", alt: "예배부 활동 사진 1" },
-      { src: "/dept/praise/2.webp", alt: "예배부 활동 사진 2" },
-      { src: "/dept/praise/3.webp", alt: "예배부 활동 사진 3" },
-      { src: "/dept/praise/4.webp", alt: "예배부 활동 사진 4" },
-    ],
     invite: {
       heading: "예배부에서 함께 섬겨요",
       body: "찬양과 연주, 음향과 방송으로 예배를 섬기고 싶은 분들을 기다립니다. 재능보다 중요한 것은 예배자의 마음입니다. 함께 온 맘 다해 주님을 찬양하며 섬김의 자리로 나아가세요.",
@@ -242,12 +224,6 @@ export const DEPARTMENTS: Department[] = [
       { name: "봉사의 날", desc: "교회와 이웃을 위해 손을 모으는 섬김" },
       { name: "아버지 학교", desc: "가정의 영적 리더로 세워지는 과정" },
       { name: "전도 축제", desc: "이웃에게 복음을 전하는 특별한 날" },
-    ],
-    gallery: [
-      { src: "/dept/men/1.webp", alt: "남선교회 활동 사진 1" },
-      { src: "/dept/men/2.webp", alt: "남선교회 활동 사진 2" },
-      { src: "/dept/men/3.webp", alt: "남선교회 활동 사진 3" },
-      { src: "/dept/men/4.webp", alt: "남선교회 활동 사진 4" },
     ],
     invite: {
       heading: "남선교회와 함께 세워가요",
@@ -291,12 +267,6 @@ export const DEPARTMENTS: Department[] = [
       { name: "사랑의 바자회", desc: "나눔으로 이웃을 섬기는 섬김의 장" },
       { name: "어머니 학교", desc: "믿음의 어머니로 세워지는 과정" },
     ],
-    gallery: [
-      { src: "/dept/women/1.webp", alt: "여선교회 활동 사진 1" },
-      { src: "/dept/women/2.webp", alt: "여선교회 활동 사진 2" },
-      { src: "/dept/women/3.webp", alt: "여선교회 활동 사진 3" },
-      { src: "/dept/women/4.webp", alt: "여선교회 활동 사진 4" },
-    ],
     invite: {
       heading: "여선교회와 함께해요",
       body: "기도와 나눔으로 함께할 여성 성도를 환영합니다. 따뜻한 자매애 안에서 서로를 격려하며, 가정과 교회를 섬기는 아름다운 동역의 자리로 초대합니다. 언제든 편안하게 함께해 주세요.",
@@ -325,6 +295,7 @@ export const DEPT_SECTIONS = {
   activities: "주요 활동",
   programs: "특별 프로그램",
   gallery: "활동 사진",
+  galleryMore: "사진 더 보기",
 } as const;
 
 // 카드 16:9 썸네일 — 영상이면 poster, 없으면 기본 에셋. 순수 함수(테스트 용이).
