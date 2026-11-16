@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import { renderMarkdown, splitYouTubeSegments } from "./markdown";
+import { renderMarkdown, splitYouTubeSegments, unsignedMediaUrls } from "./markdown";
 
 describe("renderMarkdown", () => {
   it("<script>를 통째로 제거한다", () => {
@@ -36,6 +36,37 @@ describe("renderMarkdown", () => {
       vi.unstubAllEnvs();
       vi.resetModules();
     }
+  });
+
+  it("mediaUrls 맵의 서명 경로는 API 베이스 뒤에 그대로 붙인다(링크는 맵에 없으면 무서명)", async () => {
+    vi.stubEnv("NEXT_PUBLIC_API_BASE", "https://api.example.com/church/eunsaem");
+    vi.resetModules();
+    try {
+      const { renderMarkdown: render } = await import("./markdown");
+      const html = render("![a](media:42)\n\n[b](media:7)", { "42": "/api/media/42?exp=1&sig=s" });
+      // 속성 안의 &는 HTML 규칙대로 &amp;로 직렬화된다(브라우저가 & 로 복원)
+      expect(html).toContain('src="https://api.example.com/church/eunsaem/api/media/42?exp=1&amp;sig=s"');
+      expect(html).toContain('href="https://api.example.com/church/eunsaem/api/media/7"');
+    } finally {
+      vi.unstubAllEnvs();
+      vi.resetModules();
+    }
+  });
+
+  it("mediaUrls가 있는데 키가 없는 id의 이미지는 렌더하지 않는다", () => {
+    const html = renderMarkdown("앞\n\n![없음](media:9)\n\n![있음](media:42)", { "42": "/api/media/42?exp=1&sig=s" });
+    expect(html).not.toContain("/api/media/9");
+    expect(html).toContain('src="/api/media/42?exp=1&amp;sig=s"');
+    expect(html).toContain("앞");
+  });
+
+  it("mediaUrls가 빈 객체면 모든 media 이미지를 숨기고, 미지정이면 기존처럼 무서명", () => {
+    expect(renderMarkdown("![a](media:9)", {})).not.toContain("<img");
+    expect(renderMarkdown("![a](media:9)")).toContain('src="/api/media/9"');
+  });
+
+  it("unsignedMediaUrls는 본문의 media id를 무서명 경로로 모은다", () => {
+    expect(unsignedMediaUrls("![a](media:3) [b](media:40)")).toEqual({ "3": "/api/media/3", "40": "/api/media/40" });
   });
 
   it("본문 null·빈 문자열은 빈 HTML을 반환한다(서버 content null 500 방어)", () => {

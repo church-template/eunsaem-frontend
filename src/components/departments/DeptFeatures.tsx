@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { Container } from "@/components/shell/Container";
 import { Reveal } from "@/components/main/Reveal";
+import { MarkdownContent } from "@/components/common/MarkdownContent";
 import { typo } from "@/constants/typography";
 import { cn } from "@/lib/utils";
 import type { DeptFeature } from "@/constants/departments";
@@ -38,17 +39,23 @@ const ICONS: Record<string, LucideIcon> = {
 export function DeptFeatures({
   heading,
   lead,
+  leadMarkdown,
   items,
 }: {
   heading: string;
   lead?: string;
+  leadMarkdown?: string; // 관리 화면 description(raw 마크다운) — 있으면 lead 대신 렌더
   items: DeptFeature[];
 }) {
   return (
     <Container as="section" className="grid gap-xxl break-keep py-section lg:grid-cols-12">
       <Reveal className="lg:col-span-4">
         <h2 className={cn(typo.displayMd, "text-ink")}>{heading}</h2>
-        {lead ? <p className={cn(typo.bodyLg, "mt-base text-body")}>{lead}</p> : null}
+        {leadMarkdown ? (
+          <MarkdownContent source={leadMarkdown} className="mt-base" />
+        ) : lead ? (
+          <p className={cn(typo.bodyLg, "mt-base text-body")}>{lead}</p>
+        ) : null}
       </Reveal>
       <ol className="border-t-2 border-ink lg:col-span-8">
         {items.map((f, i) => {

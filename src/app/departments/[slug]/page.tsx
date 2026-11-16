@@ -14,6 +14,8 @@ import { DeptActivities } from "@/components/departments/DeptActivities";
 import { DeptPrograms } from "@/components/departments/DeptPrograms";
 import { DeptGallery } from "@/components/departments/DeptGallery";
 import { DeptInvite } from "@/components/departments/DeptInvite";
+import { DeptEditAction } from "@/components/departments/DeptEditAction";
+import { getDepartmentOverrides } from "@/lib/api/departments";
 import {
   allDepartmentSlugs,
   findDepartment,
@@ -44,6 +46,7 @@ export async function generateMetadata({
 // 사역 부서 상세(공개) — 상수 구동. SiteShell 대신 투명+solid 고정 헤더 직접 합성.
 // DeptHero 시작이 라이트라 on-dark 투명은 가독성 위험 → 라이트 스킨 고정(메인 무수정).
 // 보강 섹션은 데이터가 있는 부서에만 조건부 노출(학생부만 채움, 타 부서는 기존과 동일).
+// backendId가 연결된 부서는 대표 사진·활동 사진·소개 본문을 API 값으로 덮어쓴다(비면 상수 유지).
 export default async function DepartmentDetailPage({
   params,
 }: {
@@ -54,6 +57,9 @@ export default async function DepartmentDetailPage({
   if (!dept) {
     notFound();
   }
+  const overrides = await getDepartmentOverrides(dept);
+  const media = overrides.media ?? dept.media;
+  const gallery = overrides.gallery ?? dept.gallery;
 
   // 줄 단위 카피 → block span(메인 caption과 동일 패턴, "\n" 이슈 차단).
   const caption = dept.caption.map((line, i) => (
@@ -66,9 +72,15 @@ export default async function DepartmentDetailPage({
     <>
       <SiteHeader variant="transparent" solid />
       <main className="flex-1">
-        <DeptHero title={dept.name} caption={caption} media={dept.media} />
+        <DeptHero title={dept.name} caption={caption} media={media} />
+        {dept.backendId != null ? (
+          <Container className="flex justify-end pt-base">
+            <DeptEditAction backendId={dept.backendId} />
+          </Container>
+        ) : null}
         {/* 안내서 흐름: 모임 안내(언제·어디) → 소개 → 사진 → 함께하는 일 → 초대.
-            description(마크다운)은 intro.lead와 내용이 겹쳐 상세에선 렌더하지 않는다. */}
+            상수 description(마크다운)은 intro.lead와 내용이 겹쳐 렌더하지 않는다.
+            API description이 있으면 그것이 intro.lead 자리를 대신한다(소개 본문 단일 출처). */}
         {dept.info?.length ? <DeptInfo heading={DEPT_SECTIONS.info} items={dept.info} /> : null}
         {dept.leader ? (
           <Container className="pt-xl">
@@ -79,11 +91,12 @@ export default async function DepartmentDetailPage({
           <DeptFeatures
             heading={dept.intro.heading}
             lead={dept.intro.lead}
+            leadMarkdown={overrides.introMarkdown}
             items={dept.features}
           />
         ) : null}
-        {dept.gallery?.length ? (
-          <DeptGallery heading={DEPT_SECTIONS.gallery} photos={dept.gallery} />
+        {gallery?.length ? (
+          <DeptGallery heading={DEPT_SECTIONS.gallery} photos={gallery} />
         ) : null}
         {dept.activities?.length || dept.programs?.length ? (
           <Container as="section" className="break-keep py-section">
