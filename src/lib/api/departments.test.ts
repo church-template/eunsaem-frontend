@@ -91,16 +91,18 @@ describe("부서 사진·소개 덮어쓰기(church-backend#92)", () => {
   const detail = (over: Record<string, unknown>) =>
     okJson({ ...card({ id: 7 }), description: "", createdAt: "", updatedAt: "", version: 1, ...over });
 
-  it("은샘 상수는 아직 백엔드 id가 없다(운영 부서 미등록)", () => {
-    const all = DEPARTMENTS.flatMap((d) => [d, ...(d.children ?? [])]);
-    expect(all.every((d) => d.backendId === undefined)).toBe(true);
+  it("은샘 상수 부서가 운영 백엔드 부서 id에 연결돼 있다", () => {
+    expect(Object.fromEntries(DEPARTMENTS.map((d) => [d.slug, d.backendId]))).toEqual({
+      student: 7, youth: 8, praise: 9, men: 10, women: 11,
+    });
   });
 
   it("backendId가 없으면 fetch 없이 빈 덮어쓰기", async () => {
     const spy = vi.fn();
     vi.stubGlobal("fetch", spy);
-    expect(await getDepartmentOverrides(student)).toEqual({});
-    expect(await withListHeroMedia(DEPARTMENTS)).toBe(DEPARTMENTS);
+    const unlinked = DEPARTMENTS.map((d) => ({ ...d, backendId: undefined }));
+    expect(await getDepartmentOverrides(unlinked[0])).toEqual({});
+    expect(await withListHeroMedia(unlinked)).toBe(unlinked);
     expect(spy).not.toHaveBeenCalled();
   });
 

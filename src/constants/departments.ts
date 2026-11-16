@@ -28,7 +28,7 @@ export interface DeptPhoto {
 export interface Department {
   slug: string; // URL 키(/departments/{slug}) — 백엔드 id와 무관, 프론트가 큐레이션
   // 백엔드 부서 id — 있으면 대표 사진·활동 사진·소개를 관리 화면 값으로 바꿔 보여 준다(없거나 비면 아래 상수).
-  // 운영 백엔드에 은샘 부서가 아직 없어 모두 비워 둔다. 관리 화면에서 부서를 만든 뒤 그 id를 채운다.
+  // 운영 백엔드 은샘 부서 id(2026-11-16 등록): 학생부 7, 청년부 8, 예배부 9, 남선교회 10, 여선교회 11.
   backendId?: number;
   name: string;
   leader?: string;
@@ -58,12 +58,13 @@ const img = (slug: string, name: string): HeroMedia => ({
   alt: name,
 });
 
-// 사역 부서 — 메가메뉴 "사역" 카테고리와 동일 구성(학생부·청년부·예배부·남선교회·여선교회).
+// 부서 — 메가메뉴 "부서" 카테고리와 동일 구성(학생부·청년부·예배부·남선교회·여선교회).
 // 담당자(leader)는 실제 인명이 확정되기 전까지 비워 둔다(상세 페이지가 없으면 '인도' 줄을 생략).
 // 하위 부서는 두지 않는다 — 은샘교회는 학생부가 단일 부서. 필요 시 어드민 CRUD로 추가한다.
 export const DEPARTMENTS: Department[] = [
   {
     slug: "student",
+    backendId: 7,
     name: "학생부",
     description:
       "중·고등학생이 **말씀과 예배** 안에서 건강하게 자라가는 공동체입니다.\n\n매주 토요일 오전 11시, 학생·청년이 함께 예배하며 찬양과 말씀, 소그룹 나눔으로 모입니다.",
@@ -111,6 +112,7 @@ export const DEPARTMENTS: Department[] = [
   },
   {
     slug: "youth",
+    backendId: 8,
     name: "청년부",
     description:
       "대학생과 직장인 청년이 **예배와 교제**로 신앙의 뿌리를 내리는 공동체입니다.\n\n각자의 자리에서 그리스도의 제자로 살아가며, 진솔한 나눔과 깊이 있는 말씀으로 함께 성장합니다.",
@@ -158,6 +160,7 @@ export const DEPARTMENTS: Department[] = [
   },
   {
     slug: "praise",
+    backendId: 9,
     name: "예배부",
     description:
       "찬양과 경배로 **예배를 섬기는** 사역팀 'Seed-씨앗'입니다.\n\n리드보컬과 악기, 음향·방송이 한 마음으로 성도들의 마음을 모아 하나님께 영광을 돌립니다.",
@@ -205,6 +208,7 @@ export const DEPARTMENTS: Department[] = [
   },
   {
     slug: "men",
+    backendId: 10,
     name: "남선교회",
     description:
       "남성 성도들이 **섬김과 봉사**로 교회를 세워가는 공동체입니다.\n\n예배와 선교, 교회 시설 섬김과 형제 교제로 가정과 교회의 영적 리더로 함께 성장합니다.",
@@ -252,6 +256,7 @@ export const DEPARTMENTS: Department[] = [
   },
   {
     slug: "women",
+    backendId: 11,
     name: "여선교회",
     description:
       "여성 성도들이 **기도와 나눔**으로 함께하는 공동체입니다.\n\n영성 훈련과 사랑의 봉사, 따뜻한 자매애로 가정과 교회를 섬기며 아름답게 성장합니다.",
@@ -301,11 +306,11 @@ export const DEPARTMENTS: Department[] = [
 
 // 목록·상세 페이지 카피.
 export const DEPT_PAGE = {
-  eyebrow: "사역",
-  title: "사역 안내",
-  empty: "등록된 사역이 없습니다.",
+  eyebrow: "부서",
+  title: "부서 안내",
+  empty: "등록된 부서가 없습니다.",
   listEyebrow: "함께함이 축복이 되는 교회",
-  headline: ["함께 예배하고,", "함께 섬기는 사역"],
+  headline: ["함께 예배하고,", "함께 섬기는 부서"],
   lead: "내려가며 한 부서씩 만나 보세요.",
   more: "자세히 보기",
   leaderLabel: "인도",

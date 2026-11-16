@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: DEPT_PAGE.title,
-  description: `${CHURCH_NAME}의 사역과 부서를 소개합니다.`,
+  description: `${CHURCH_NAME}의 부서를 소개합니다.`,
   alternates: { canonical: "/departments" },
 };
 
