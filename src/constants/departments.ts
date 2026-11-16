@@ -27,6 +27,9 @@ export interface DeptPhoto {
 
 export interface Department {
   slug: string; // URL 키(/departments/{slug}) — 백엔드 id와 무관, 프론트가 큐레이션
+  // 백엔드 부서 id — 있으면 대표 사진·활동 사진·소개를 관리 화면 값으로 바꿔 보여 준다(없거나 비면 아래 상수).
+  // 운영 백엔드에 은샘 부서가 아직 없어 모두 비워 둔다. 관리 화면에서 부서를 만든 뒤 그 id를 채운다.
+  backendId?: number;
   name: string;
   leader?: string;
   description: string; // raw 마크다운 → MarkdownContent

@@ -21,6 +21,11 @@ vi.mock("@/hero/DeptHero", () => ({
   ),
 }));
 
+// 수정 버튼(권한 게이트)은 DeptEditAction 단위 테스트가 커버 — 여기선 노출 위치·id 전달만 본다.
+vi.mock("@/components/departments/DeptEditAction", () => ({
+  DeptEditAction: ({ backendId }: { backendId: number }) => <span data-testid="dept-edit">{backendId}</span>,
+}));
+
 import DepartmentDetailPage, { generateStaticParams } from "./page";
 
 function stubBrowserApis() {
@@ -72,5 +77,39 @@ describe("DepartmentDetailPage (상세)", () => {
     expect(params).toContainEqual({ slug: "student" });
     expect(params).toContainEqual({ slug: "youth" });
     expect(params).toContainEqual({ slug: "women" });
+  });
+
+  it("백엔드 id가 없으면 API를 부르지 않고 수정 버튼도 없다(상수 그대로)", async () => {
+    stubBrowserApis();
+    const spy = vi.fn();
+    vi.stubGlobal("fetch", spy);
+    render(await DepartmentDetailPage({ params: Promise.resolve({ slug: "student" }) }));
+    expect(spy).not.toHaveBeenCalled();
+    expect(screen.queryByTestId("dept-edit")).toBeNull();
+    expect(screen.getByText(student.intro!.lead)).toBeDefined();
+  });
+
+  it("백엔드 id가 연결되면 소개 본문·활동 사진을 API 값으로 바꾸고 수정 버튼 자리를 둔다", async () => {
+    stubBrowserApis();
+    vi.stubGlobal("fetch", vi.fn(async () => ({
+      ok: true,
+      status: 200,
+      json: async () => ({
+        id: 7, name: "학생부", leader: "", parentId: null, sortOrder: 0, description: "관리 화면 **소개**",
+        createdAt: "", updatedAt: "", version: 1, heroMediaId: 11, albumId: 3, photos: [21],
+      }),
+    }) as Response));
+    student.backendId = 7; // 런타임에서만 연결(상수 파일은 비워 둔다)
+    try {
+      const { container } = render(
+        await DepartmentDetailPage({ params: Promise.resolve({ slug: "student" }) }),
+      );
+      expect(container.querySelector(".prose-church")?.textContent).toContain("관리 화면 소개");
+      expect(screen.queryByText(student.intro!.lead)).toBeNull();
+      expect(container.querySelector('img[src="/api/media/21"]')).not.toBeNull();
+      expect(screen.getByTestId("dept-edit").textContent).toBe("7");
+    } finally {
+      delete student.backendId;
+    }
   });
 });
