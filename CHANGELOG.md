@@ -1,7 +1,20 @@
 # Changelog
 
-**현재 버전:** 0.1.100  
-**마지막 업데이트:** 2026-11-15T08:40:20Z  
+**현재 버전:** 0.1.101  
+**마지막 업데이트:** 2026-11-16T14:40:32Z  
+
+---
+
+## [0.1.101] - 2026-11-16
+
+**PR:** #183  
+
+**새 기능**
+- 부서 사진·소개 관리 화면 연동과 미디어 공개 범위 대응 https://github.com/church-template/eunsaem-frontend/issues/181
+
+**기타**
+- Merge pull request #182 from church-template/20261116_#181_기능추가_부서_사진_소개_직접_수정
+- 소개 페이지 테스트 2개를 현재 화면에 맞게 수정 https://github.com/church-template/eunsaem-frontend/issues/181
 
 ---
 
