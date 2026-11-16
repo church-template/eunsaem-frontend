@@ -1,7 +1,23 @@
 # Changelog
 
-**현재 버전:** 0.1.101  
-**마지막 업데이트:** 2026-11-16T14:40:32Z  
+**현재 버전:** 0.1.104  
+**마지막 업데이트:** 2026-11-16T15:23:43Z  
+
+---
+
+## [0.1.104] - 2026-11-16
+
+**PR:** #190  
+
+**새 기능**
+- 사진 업로드 전 브라우저에서 WebP로 변환 https://github.com/church-template/eunsaem-frontend/issues/188
+- 부서 활동 사진을 서버 앨범으로만 받고 8장씩 사진 더 보기 추가 https://github.com/church-template/eunsaem-frontend/issues/186
+- 사역 메뉴를 부서로 바꾸고 부서 5개를 운영 백엔드 id에 연결 https://github.com/church-template/eunsaem-frontend/issues/184
+
+**기타**
+- Merge pull request #189 from church-template/20261117_#188_기능개선_미디어_사진_업로드_전_WebP_변환
+- Merge pull request #187 from church-template/20261117_#186_기능개선_부서_활동_사진_서버로_옮기고_더보기_추가
+- Merge pull request #185 from church-template/20261116_#184_기능개선_부서_사역을_부서로_바꾸고_API_연결
 
 ---
 
