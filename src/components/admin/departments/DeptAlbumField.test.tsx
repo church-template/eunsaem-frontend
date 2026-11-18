@@ -112,6 +112,25 @@ describe("DeptAlbumField", () => {
     expect(m.createAlbum).toHaveBeenCalledTimes(1);
   });
 
+  it("한글 조합 중 Enter로는 만들지 않는다(마지막 글자가 덜 들어간 이름 방지)", async () => {
+    renderField();
+    fireEvent.click(await screen.findByRole("button", { name: "새 앨범 만들기" }));
+    fireEvent.keyDown(screen.getByLabelText("앨범 이름 (필수)"), { key: "Enter", isComposing: true });
+    await new Promise((r) => setTimeout(r, 20));
+    expect(m.createAlbum).not.toHaveBeenCalled();
+  });
+
+  it("만드는 중에는 창이 닫히지 않는다(닫은 뒤 늦게 끝나 다른 선택을 덮지 않게)", async () => {
+    m.createAlbum.mockReturnValue(new Promise(() => {}));
+    renderField();
+    fireEvent.click(await screen.findByRole("button", { name: "새 앨범 만들기" }));
+    fireEvent.click(screen.getByRole("button", { name: "만들고 연결" }));
+    await waitFor(() => expect(m.createAlbum).toHaveBeenCalled());
+    fireEvent.keyDown(document.activeElement ?? document.body, { key: "Escape" });
+    await new Promise((r) => setTimeout(r, 20));
+    expect(screen.getByRole("dialog", { name: "새 앨범 만들기" })).toBeDefined();
+  });
+
   it("이름이 비면 만들지 않는다", async () => {
     renderField();
     fireEvent.click(await screen.findByRole("button", { name: "새 앨범 만들기" }));

@@ -10,6 +10,7 @@ import { ChangedBadge } from "@/components/admin/editor/ChangedBadge";
 import { fetchAlbum } from "@/lib/api/gallery";
 import { mediaSrc } from "@/lib/mediaUrl";
 import { albumKey } from "./DeptAlbumField";
+import { spacingPx } from "@/components/admin/editor/useFitAbove";
 
 export interface DeptEditPreviewProps {
   backendId?: number;
@@ -23,7 +24,6 @@ export interface DeptEditPreviewProps {
 }
 
 const PREVIEW_PHOTOS = 4;
-const SCROLL_GAP_PX = 16; // spacing.base
 
 // dept-edit-preview(DESIGN, #191). 공개 부서 페이지가 API 값으로 바꾸는 구역만 그린다(getDepartmentOverrides와 같은 규칙):
 // 대표 사진·소개·활동 사진. 부서명·담당은 공개 페이지가 상수에서 읽으므로 여기서도 상수 이름을 쓴다.
@@ -143,7 +143,7 @@ function useScrollToGallery(request: number, settledSignature: string | null) {
       const box = scrollParent(el);
       if (!box) return;
       const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
-      const top = el.getBoundingClientRect().top - box.getBoundingClientRect().top + box.scrollTop - SCROLL_GAP_PX;
+      const top = el.getBoundingClientRect().top - box.getBoundingClientRect().top + box.scrollTop - spacingPx("base");
       box.scrollTo({ top, behavior: reduce ? "auto" : "smooth" });
     });
   }, [request, settledSignature]);

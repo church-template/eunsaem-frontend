@@ -33,6 +33,7 @@ vi.mock("@/lib/auth/useMe", () => ({
 }));
 
 import { DepartmentEditForm } from "./DepartmentEditForm";
+import { onlineManager } from "@tanstack/react-query";
 import { ApiError } from "@/lib/auth/apiError";
 
 const departments = [
@@ -226,6 +227,65 @@ describe("DepartmentEditForm", () => {
     await waitFor(() => expect(save().disabled).toBe(false));
     fireEvent.click(save());
     await waitFor(() => expect(m.update).toHaveBeenLastCalledWith(2, expect.objectContaining({ albumId: 42, version: 5 })));
+  });
+
+  it("설명이 너무 길면 저장하지 않고 이유를 보인다", async () => {
+    renderForm({ mode: "create" });
+    fireEvent.change(nameInput(), { target: { value: "새부서" } });
+    fireEvent.change(document.getElementById("dept-description") as HTMLTextAreaElement, { target: { value: "가".repeat(50001) } });
+    fireEvent.click(save());
+    expect(await screen.findByText("설명은 50,000자 이내로 써 주세요.")).toBeDefined();
+    expect(m.create).not.toHaveBeenCalled();
+  });
+
+  it("저장은 됐는데 공개 화면 캐시 갱신이 실패해도 저장 완료로 처리하고 돌아간다", async () => {
+    m.create.mockResolvedValue({ id: 9 });
+    m.revalidate.mockRejectedValue(new Error("network"));
+    renderForm({ mode: "create" });
+    fireEvent.change(nameInput(), { target: { value: "새부서" } });
+    fireEvent.click(save());
+    await waitFor(() => expect(m.push).toHaveBeenCalledWith("/mypage/manage/departments"));
+    expect(m.success).toHaveBeenCalledWith("저장했습니다.");
+    expect(m.create).toHaveBeenCalledTimes(1);
+  });
+
+  it("만든 앨범에서 다른 앨범으로 바꾼 뒤 충돌(409)이 나면 만든 앨범을 되살리지 않는다", async () => {
+    m.detail.mockResolvedValueOnce(detail({ albumId: null, version: 4 })).mockResolvedValue(detail({ albumId: null, version: 5 }));
+    m.fetchAlbums.mockResolvedValue({ content: [{ id: 8, title: "찬양의 밤" }] });
+    m.createAlbum.mockResolvedValue({ id: 42, title: "중등부 활동 사진", photos: [] });
+    m.update.mockRejectedValueOnce(new ApiError(409, "OPTIMISTIC_LOCK_CONFLICT", "충돌")).mockResolvedValue({ id: 2 });
+    renderForm({ mode: "edit", editId: 2 });
+    await waitFor(() => expect(nameInput().value).toBe("중등부"));
+    fireEvent.click(await screen.findByRole("button", { name: "새 앨범 만들기" }));
+    fireEvent.click(screen.getByRole("button", { name: "만들고 연결" }));
+    await waitFor(() => expect(m.createAlbum).toHaveBeenCalled());
+    await screen.findByRole("option", { name: "찬양의 밤" });
+    fireEvent.change(screen.getByLabelText("활동 사진 앨범 선택"), { target: { value: "8" } });
+    fireEvent.click(save());
+    await waitFor(() => expect(m.detail).toHaveBeenCalledTimes(2));
+    await waitFor(() => expect(save().disabled).toBe(false));
+    fireEvent.click(save());
+    await waitFor(() => expect(m.update).toHaveBeenCalledTimes(2));
+    expect(m.update.mock.calls[1][1].albumId).not.toBe(42);
+  });
+
+  it("인터넷이 끊겼다 다시 이어져도 고치던 칸을 서버 값으로 덮지 않는다", async () => {
+    m.detail.mockResolvedValueOnce(detail()).mockResolvedValue(detail({ leader: "다른 관리자가 바꾼 값", version: 5 }));
+    renderForm({ mode: "edit", editId: 2 });
+    await waitFor(() => expect(nameInput().value).toBe("중등부"));
+    fireEvent.change(screen.getByLabelText("담당 (선택)"), { target: { value: "내가 고치는 중" } });
+    onlineManager.setOnline(false);
+    onlineManager.setOnline(true);
+    await new Promise((r) => setTimeout(r, 50));
+    expect((screen.getByLabelText("담당 (선택)") as HTMLInputElement).value).toBe("내가 고치는 중");
+    expect(m.detail).toHaveBeenCalledTimes(1);
+  });
+
+  it("정렬 순서 칸은 아래 설명을 스크린리더가 함께 읽도록 연결한다", () => {
+    renderForm({ mode: "create" });
+    const ids = (screen.getByLabelText("정렬 순서 (선택)").getAttribute("aria-describedby") ?? "").split(" ");
+    const help = screen.getByText("숫자가 작을수록 앞에 나옵니다.");
+    expect(ids).toContain(help.id);
   });
 
   it("부서명·담당은 공개 소개 페이지에 나오지 않는다고 기본 정보 구역에서 한 번 알린다", () => {

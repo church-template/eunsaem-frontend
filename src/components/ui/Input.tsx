@@ -26,7 +26,7 @@ const variantClass: Record<InputVariant, string> = {
 };
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ variant = "text", error, className, id, ...props }, ref) => {
+  ({ variant = "text", error, className, id, "aria-describedby": describedBy, ...props }, ref) => {
     const reactId = useId();
     const inputId = id ?? reactId;
     const errorId = `${inputId}-error`;
@@ -36,7 +36,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           ref={ref}
           id={inputId}
           aria-invalid={error ? true : undefined}
-          aria-describedby={error ? errorId : undefined}
+          // 칸 아래 설명(호출한 쪽)과 오류 메시지를 둘 다 읽게 합친다
+          aria-describedby={[describedBy, error ? errorId : null].filter(Boolean).join(" ") || undefined}
           className={cn(
             typo.bodyMd,
             "w-full text-ink outline-hidden placeholder:text-muted",

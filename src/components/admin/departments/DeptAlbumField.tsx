@@ -223,7 +223,8 @@ function CreateAlbumDialog({
   };
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    // 만드는 중에는 닫지 않는다 — 닫은 뒤 늦게 끝난 응답이 그사이 고른 다른 앨범을 덮어쓰지 않게
+    <Dialog open={open} onOpenChange={(v) => (v || !create.isPending ? onOpenChange(v) : undefined)}>
       <DialogContent aria-describedby={undefined}>
         <DialogHeader>
           <DialogTitle>새 앨범 만들기</DialogTitle>
@@ -236,7 +237,8 @@ function CreateAlbumDialog({
             error={error}
             onChange={(e) => setTitle(e.target.value)}
             onKeyDown={(e) => {
-              if (e.key === "Enter") {
+              // 한글 조합 중 Enter는 글자 확정용 — 이때 만들면 마지막 글자가 빠진 이름이 된다
+              if (e.key === "Enter" && !e.nativeEvent.isComposing) {
                 e.preventDefault(); // 부서 폼 제출 방지
                 submit();
               }

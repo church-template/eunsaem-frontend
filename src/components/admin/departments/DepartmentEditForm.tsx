@@ -84,6 +84,8 @@ export function DepartmentEditForm({ mode, editId, defaultParentId, from }: Depa
     enabled: isEdit,
     staleTime: 0,
     gcTime: 0,
+    // 재연결 때 다시 불러오면 시드 effect가 고치던 칸을 말없이 덮는다 — 최신본은 충돌(409) 때만 명시적으로 다시 불러온다
+    refetchOnReconnect: false,
     retry: false, // 재시도하면 저장 버튼이 ~30초간 말없이 멈춤 — 즉시 실패 후 토스트(Bulletin 정책)
   });
   const departments = useQuery({
@@ -155,7 +157,12 @@ export function DepartmentEditForm({ mode, editId, defaultParentId, from }: Depa
     }),
     onSuccess: async () => {
       // 공개 부서 페이지가 사진·소개를 API에서 읽으므로 ISR 캐시를 즉시 무효화(updateTag server action).
-      await revalidateDepartments();
+      // 저장은 이미 끝났다 — 공개 캐시 갱신이 실패해도 저장 완료로 처리한다(다시 저장하면 낡은 version으로 충돌)
+      try {
+        await revalidateDepartments();
+      } catch {
+        notify.error("저장했지만 공개 화면에 반영되기까지 시간이 걸릴 수 있습니다.");
+      }
       qc.invalidateQueries({ queryKey: adminKeys.list("departments") });
       notify.success("저장했습니다.");
       router.push(returnTo);
@@ -240,6 +247,8 @@ export function DepartmentEditForm({ mode, editId, defaultParentId, from }: Depa
                   value={field.value}
                   onChange={(id) => {
                     field.onChange(id);
+                    // 만든 앨범에서 다른 앨범으로 옮겼으면 409 재시드 때 되살리지 않는다
+                    if (id !== createdAlbumId.current) createdAlbumId.current = null;
                     setGalleryRequest((r) => r + 1);
                   }}
                   onPhotosAdded={(n) => {
@@ -261,7 +270,13 @@ export function DepartmentEditForm({ mode, editId, defaultParentId, from }: Depa
               control={control}
               name="description"
               render={({ field }) => (
-                <MarkdownEditor value={field.value} onChange={field.onChange} id="dept-description" rows={8} />
+                <MarkdownEditor
+                  value={field.value}
+                  onChange={field.onChange}
+                  id="dept-description"
+                  rows={8}
+                  error={errors.description?.message}
+                />
               )}
             />
           </Field>
@@ -302,6 +317,7 @@ export function DepartmentEditForm({ mode, editId, defaultParentId, from }: Depa
                     value={field.value === null ? "" : String(field.value)}
                     onChange={(e) => field.onChange(e.target.value === "" ? null : Number(e.target.value))}
                     error={errors.sortOrder?.message}
+                    aria-describedby="dept-sortOrder-help"
                   />
                 )}
               />
