@@ -75,7 +75,7 @@ export default async function DepartmentDetailPage({
         <DeptHero title={dept.name} caption={caption} media={media} />
         {dept.backendId != null ? (
           <Container className="flex justify-end pt-base">
-            <DeptEditAction backendId={dept.backendId} />
+            <DeptEditAction backendId={dept.backendId} slug={dept.slug} />
           </Container>
         ) : null}
         {/* 안내서 흐름: 모임 안내(언제·어디) → 소개 → 사진 → 함께하는 일 → 초대.

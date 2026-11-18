@@ -12,11 +12,11 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 // text: 1px hairline + 포커스 시 border 1px + ring 1px = 시각상 2px primary(리플로우 없음).
-// hover는 보더 톤만 한 단계 올려(muted-soft) 포커스 전 단계를 예고한다.
+// 기본 보더는 muted-soft — hairline은 흰 바탕에서 빈 칸이 칸으로 안 보였다(#191). hover는 한 단계 더(muted).
 const variantClass: Record<InputVariant, string> = {
   text: cn(
-    "bg-canvas rounded-md h-12 px-4 border border-hairline",
-    "hover:border-muted-soft",
+    "bg-canvas rounded-md h-12 px-4 border border-muted-soft",
+    "hover:border-muted",
     "focus-visible:border-primary focus-visible:ring-1 focus-visible:ring-primary focus-visible:hover:border-primary",
   ),
   searchPill: cn(
