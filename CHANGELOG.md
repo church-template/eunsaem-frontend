@@ -1,7 +1,34 @@
 # Changelog
 
-**현재 버전:** 0.1.104  
-**마지막 업데이트:** 2026-11-16T15:23:43Z  
+**현재 버전:** 0.1.107  
+**마지막 업데이트:** 2026-11-18T01:59:49Z  
+
+---
+
+## [0.1.107] - 2026-11-18
+
+**PR:** #195  
+
+**새 기능**
+- 새로 만들 때 날짜 칸을 오늘로 채우기 https://github.com/church-template/eunsaem-frontend/issues/193
+- 관리 수정 화면을 페이지와 미리보기 틀로 바꾸고 부서 앨범 바로 만들기 추가 https://github.com/church-template/eunsaem-frontend/issues/191
+
+**버그 수정**
+- 코드 리뷰 반영 — 돌아갈 주소 검사·재연결 덮어쓰기·한글 입력 Enter 등 https://github.com/church-template/eunsaem-frontend/issues/191
+
+**문서**
+- 새로 만들 때 날짜 칸을 오늘로 채우기 리포트 문서 추가 https://github.com/church-template/eunsaem-frontend/issues/193
+- 수정 화면을 페이지와 미리보기로 통일, 앨범 바로 만들기 리포트 문서 추가 https://github.com/church-template/eunsaem-frontend/issues/191
+- 새로 만들 때 날짜 칸을 오늘로 채우기 이슈 문서 추가 https://github.com/church-template/eunsaem-frontend/issues/193
+- 수정 화면을 페이지와 미리보기로 통일, 앨범 바로 만들기 이슈 문서 추가 https://github.com/church-template/eunsaem-frontend/issues/191
+- 사진 업로드 전 WebP 변환 이슈·리포트 문서 추가 https://github.com/church-template/eunsaem-frontend/issues/188
+- 활동 사진 서버로 옮기고 더보기 추가 이슈·리포트 문서 추가 https://github.com/church-template/eunsaem-frontend/issues/186
+- 사역을 부서로 바꾸고 API 연결 이슈·리포트 문서 추가 https://github.com/church-template/eunsaem-frontend/issues/184
+- 부서 사진 소개를 관리 화면에서 직접 수정 이슈·리포트 문서 추가 https://github.com/church-template/eunsaem-frontend/issues/181
+
+**기타**
+- Merge pull request #194 from church-template/20261118_#193_기능개선_관리_새로_만들_때_날짜_칸을_오늘로_채우기
+- Merge pull request #192 from church-template/20261118_#191_기능개선_관리_수정_화면을_페이지와_미리보기로_통일_앨범_바로_만들기
 
 ---
 
