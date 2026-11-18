@@ -1,6 +1,6 @@
 {
   "name": "church-frontend",
-  "version": "0.1.107",
+  "version": "0.1.108",
   "private": true,
   "engines": {
     "node": "26.x"
